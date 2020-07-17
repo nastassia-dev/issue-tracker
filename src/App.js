@@ -1,12 +1,16 @@
 import React from 'react';
+import { Route, Switch } from 'react-router-dom';
 
-import TasksPage from './components/tasks/TasksPage';
+import AppContainer from './components/container/AppContainer';
+import Main from './components/main/Main';
 
 function App() {
   return (
-    <>
-      <TasksPage />
-    </>
+    <AppContainer>
+      <Switch>
+        <Route exact path='/' component={Main}/>
+      </Switch>
+    </AppContainer>
   );
 }
 

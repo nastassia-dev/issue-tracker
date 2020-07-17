@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import * as tasksActions from '../../redux/actions/tasksActions';
+import Title from '../common/Title';
 
 const TasksPage = ({ tasks, loadTasks }) => {
 	useEffect(() => {
@@ -11,14 +12,14 @@ const TasksPage = ({ tasks, loadTasks }) => {
 	}, []);
 
 	return (
-		<div>
-			<h3>Issues</h3>
+		<>
+			<Title>Issues</Title>
 			{tasks.map(t => {
 				return (
 					<div key={t.id}>{t.title}</div>
 				);
 			})}
-		</div>
+		</>
 	);
 };
 
