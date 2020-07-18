@@ -11,12 +11,12 @@ const useStyles = makeStyles(() => ({
 	},
 }));
 
-const FloatingBtn = ({ color, tooltipTitle, children }) => {
+const FloatingBtn = ({ color, tooltipTitle, children, onClick }) => {
 	const classes = useStyles();
 
 	return (
 		<Tooltip title={tooltipTitle}>
-			<Fab color={color} className={classes.btnAdd}>
+			<Fab color={color} className={classes.btnAdd} onClick={onClick}>
 				{children}
 			</Fab>
 		</Tooltip>

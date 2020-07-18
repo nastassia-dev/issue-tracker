@@ -1,21 +1,20 @@
 import React from 'react';
-import AddIcon from '@material-ui/icons/Add';
+import Typography from '@material-ui/core/Typography';
 
 import DashboardCard from './DashboardCard';
-import FloatingBtn from '../common/FloatingBtn';
 
-const DashboardList = ({ dashboards }) => {
+const DashboardList = ({ dashboards, header = '' }) => {
 	return (
 		<>
+			<Typography variant='h5' component='h2' gutterBottom>
+				{header}
+			</Typography>
 			{dashboards.map(dashboard => {
 					return <span key={dashboard.id}>
 						<DashboardCard dashboard={dashboard}/>
 					</span>
 				})
 			}
-			<FloatingBtn color='primary' tooltipTitle='Create New Dashboard'>
-				<AddIcon />
-			</FloatingBtn>
 		</>
 	)
 };

@@ -9,9 +9,11 @@ import Typography from '@material-ui/core/Typography';
 const useStyles = makeStyles({
 	root: {
 		minWidth: 350,
+		minHeight: 200,
 		display: 'inline-block',
 		marginRight: 25,
-	  marginBottom: 25,
+		marginBottom: 25,
+		border: '1px solid #76C077',
 	},
 	meta: {
 		float: 'right',
@@ -27,16 +29,16 @@ const DashboardCard = ({ dashboard }) => {
 		<Card className={classes.root}>
 			<CardContent>
 				<Typography variant='h5' component='h2' gutterBottom>
-					Dashboard Title
+					{dashboard.title}
 				</Typography>
 				<Typography color='textSecondary'>
-					Dashboard Description
+					{dashboard.description}
 				</Typography>
 				<Typography color='textSecondary'>
-					Dashboard Status
+					{dashboard.status}
 				</Typography>
 				<Typography className={classes.meta} color='textSecondary' variant='body2' component='p'>
-					{`Last Updated: ${dashboard.id}`}
+					{`Last Updated: ${dashboard.lastUpdated}`}
 				</Typography>
 			</CardContent>
 			<CardActions>

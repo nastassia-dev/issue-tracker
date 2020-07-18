@@ -7,6 +7,13 @@ export function loadDashboardsSuccess(dashboards) {
 	}
 }
 
+export function saveDashboardSuccess(dashboard) {
+	return {
+		type: types.SAVE_DASHBOARD_SUCCESS,
+		dashboard,
+	}
+}
+
 export function loadDashboards() {
 	return function (dispatch) {
 		return fetch(`/dashboards`)
@@ -16,6 +23,23 @@ export function loadDashboards() {
 			})
 			.catch(e => {
 				throw e;
+			});
+	}
+}
+
+export function saveDashboard(dashboard) {
+	return function (dispatch) {
+		return fetch('/dashboards', {
+			method: 'POST',
+			headers: { 'content-type': 'application/json' },
+			body: JSON.stringify(dashboard)
+		})
+			.then(res => res.json())
+			.then(res => {
+				dispatch(saveDashboardSuccess(res))
 			})
+			.catch(e => {
+				throw e;
+			});
 	}
 }

@@ -1,16 +1,20 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
+import AddIcon from '@material-ui/icons/Add';
 import Alert from '@material-ui/lab/Alert';
 
+import FloatingBtn from '../common/FloatingBtn';
 import DashboardList from './DashboardList';
 import * as dashboardActions from '../../redux/actions/dashboardsActions';
 
-const DashboardsPage = ({ dashboards, loadDashboards }) => {
+const DashboardsPage = ({ history, dashboards, loadDashboards }) => {
 	useEffect(() => {
-		if (dashboards.length === 0) {
-			loadDashboards();
-		}
+		loadDashboards();
 	}, []);
+	const handleAddDashboard = (e) => {
+		e.preventDefault();
+		history.push('/dashboard');
+	};
 
 	return (
 		<>
@@ -18,6 +22,9 @@ const DashboardsPage = ({ dashboards, loadDashboards }) => {
 				? <DashboardList dashboards={dashboards} />
 				: <Alert severity='info'>Dashboards Not Found</Alert>
 			}
+			<FloatingBtn color='primary' tooltipTitle='Create New Dashboard' onClick={handleAddDashboard}>
+				<AddIcon />
+			</FloatingBtn>
 		</>
 	)
 };
