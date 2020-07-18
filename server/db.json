@@ -24,5 +24,42 @@
       "group": "Group1",
       "id": 4
     }
+  ],
+  "dashboards": [
+    {
+      "id": 1,
+      "title": "Dashboard1",
+      "description": "Dashboard Description",
+      "status": "active",
+      "lastUpdated": "2020-04-12"
+    },
+    {
+      "id": 2,
+      "title": "Dashboard2",
+      "description": "Dashboard Description",
+      "status": "active",
+      "lastUpdated": "2020-05-12"
+    },
+    {
+      "id": 3,
+      "title": "Dashboard3",
+      "description": "Dashboard Description",
+      "status": "archived",
+      "lastUpdated": "2020-03-22"
+    },
+    {
+      "id": 4,
+      "title": "Dashboard4",
+      "description": "Dashboard Description",
+      "status": "active",
+      "lastUpdated": "2020-04-12"
+    },
+    {
+      "id": 5,
+      "title": "Dashboard5",
+      "description": "Dashboard Description",
+      "status": "archived",
+      "lastUpdated": "2020-07-07"
+    }
   ]
 }

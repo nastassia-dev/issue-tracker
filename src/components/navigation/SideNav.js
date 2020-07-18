@@ -68,7 +68,7 @@ const SideNav = ({ open, handleDrawerClose }) => {
 					</ListItemIcon>
 					<ListItemText primary='Main' />
 				</ListItem>
-				<ListItem button component={RouterLink} to='/dashboard'>
+				<ListItem button component={RouterLink} to='/dashboards'>
 					<ListItemIcon>
 						<DashboardIcon />
 					</ListItemIcon>

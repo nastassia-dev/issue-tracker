@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import Navigation from '../navigation/Navigation';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
 	root: {
 		display: 'flex',
 	},
@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const AppContainer = (props) => {
+const AppContainer = props => {
 	const classes = useStyles();
 
 	return (
@@ -37,6 +37,6 @@ const AppContainer = (props) => {
 			</main>
 		</div>
 	);
-}
+};
 
 export default AppContainer;

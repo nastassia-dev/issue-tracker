@@ -60,7 +60,7 @@ const TopBar = ({ open, handleDrawerOpen }) => {
 						Nastassia's Workspace
 					</Typography>
 					<IconButton color='inherit'>
-						<Badge badgeContent={2} color='secondary'>
+						<Badge badgeContent={2} max={10} color='secondary'>
 							<NotificationsIcon/>
 						</Badge>
 					</IconButton>
