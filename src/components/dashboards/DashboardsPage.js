@@ -15,11 +15,24 @@ const DashboardsPage = ({ history, dashboards, loadDashboards }) => {
 		e.preventDefault();
 		history.push('/dashboard');
 	};
+	const handleViewDashboard = dashboard => {
+		history.push({
+			pathname: `/dashboard/${dashboard.slug}`,
+			state: { dashboard }
+		})
+	};
+	const handleArchiveDashboard = dashboard => {
+
+	};
+	const handleDeleteDashboard = dashboard => {
+		// TODO ask to confirm delete
+	};
+	const dashboardActions = { handleViewDashboard, handleArchiveDashboard, handleDeleteDashboard };
 
 	return (
 		<>
 			{dashboards.length > 0
-				? <DashboardList dashboards={dashboards} />
+				? <DashboardList dashboards={dashboards} dashboardActions={dashboardActions} />
 				: <Alert severity='info'>Dashboards Not Found</Alert>
 			}
 			<FloatingBtn color='primary' tooltipTitle='Create New Dashboard' onClick={handleAddDashboard}>

@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import TasksPage from '../tasks/TasksPage';
 
-const DashboardPage = () => {
+const DashboardPage = ({ location }) => {
+	const [dashboard, setDashboard] = useState(location.state && location.state.dashboard || {});
 	return (
 		<>
-			<p>DashboardPage View</p>
+			<p>{dashboard.title}</p>
 			<TasksPage/>
 		</>
 	)
