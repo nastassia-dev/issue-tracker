@@ -7,7 +7,7 @@ import FloatingBtn from '../common/FloatingBtn';
 import DashboardList from './DashboardList';
 import * as dashboardActions from '../../redux/actions/dashboardsActions';
 
-const DashboardsPage = ({ history, dashboards, loadDashboards }) => {
+const DashboardsPage = ({ history, dashboards, loadDashboards, saveDashboard, deleteDashboard }) => {
 	useEffect(() => {
 		loadDashboards();
 	}, []);
@@ -22,10 +22,12 @@ const DashboardsPage = ({ history, dashboards, loadDashboards }) => {
 		})
 	};
 	const handleArchiveDashboard = dashboard => {
-
+		saveDashboard({ ...dashboard, status: 'archived' });
 	};
 	const handleDeleteDashboard = dashboard => {
 		// TODO ask to confirm delete
+		deleteDashboard(dashboard);
+
 	};
 	const dashboardActions = { handleViewDashboard, handleArchiveDashboard, handleDeleteDashboard };
 
@@ -50,6 +52,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
 	return {
 		loadDashboards: () => dispatch(dashboardActions.loadDashboards()),
+		saveDashboard: (dashboard) => dispatch(dashboardActions.saveDashboard(dashboard)),
+		deleteDashboard: (dashboard) => dispatch(dashboardActions.deleteDashboard(dashboard)),
 	}
 };
 

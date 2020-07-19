@@ -1,4 +1,5 @@
 import * as types from './types';
+import dashboardApi from '../../api/dashboardApi';
 
 export function loadDashboardsSuccess(dashboards) {
 	return {
@@ -13,11 +14,22 @@ export function saveDashboardSuccess(dashboard) {
 		dashboard,
 	}
 }
+export function updateDashboardSuccess(dashboard) {
+	return {
+		type: types.UPDATE_DASHBOARD_SUCCESS,
+		dashboard,
+	}
+}
+export function deleteDashboardSuccess(dashboardId) {
+	return {
+		type: types.DELETE_DASHBOARD_SUCCESS,
+		dashboardId,
+	}
+}
 
 export function loadDashboards() {
 	return function (dispatch) {
-		return fetch(`/dashboards`)
-			.then(res => res.json())
+		return dashboardApi.loadDashboards()
 			.then(dashboards => {
 				dispatch(loadDashboardsSuccess(dashboards))
 			})
@@ -28,15 +40,26 @@ export function loadDashboards() {
 }
 
 export function saveDashboard(dashboard) {
+	const dashboardId = dashboard.id;
 	return function (dispatch) {
-		return fetch('/dashboards', {
-			method: 'POST',
-			headers: { 'content-type': 'application/json' },
-			body: JSON.stringify(dashboard)
-		})
-			.then(res => res.json())
-			.then(res => {
-				dispatch(saveDashboardSuccess(res))
+		return dashboardApi.saveDashboard(dashboard)
+			.then(savedDashboard => {
+				dashboardId
+					? dispatch(updateDashboardSuccess(savedDashboard))
+					: dispatch(saveDashboardSuccess(savedDashboard));
+			})
+			.catch(e => {
+				throw e;
+			});
+	}
+}
+
+export function deleteDashboard(dashboard) {
+	const dashboardId = dashboard.id;
+	return function (dispatch) {
+		return dashboardApi.deleteDashboard(dashboardId)
+			.then(() => {
+				dispatch(deleteDashboardSuccess(dashboardId));
 			})
 			.catch(e => {
 				throw e;

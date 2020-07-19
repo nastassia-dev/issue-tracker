@@ -3,24 +3,24 @@
     {
       "id": 1,
       "title": "Task1",
-      "ownerId": 1,
+      "dashboardId": 1,
       "group": "Group1"
     },
     {
       "id": 2,
       "title": "Task2",
-      "ownerId": 1,
+      "dashboardId": 1,
       "group": "Group1"
     },
     {
       "title": "Task3",
-      "ownerId": 1,
+      "dashboardId": 1,
       "group": "Group1",
       "id": 3
     },
     {
       "title": "Task4",
-      "ownerId": 1,
+      "dashboardId": 2,
       "group": "Group1",
       "id": 4
     }
@@ -32,7 +32,7 @@
       "description": "Dashboard Description",
       "status": "active",
       "slug": "dashboard1",
-      "lastUpdated": "2020-04-12"
+      "updatedAt": 1595125522454
     },
     {
       "id": 2,
@@ -40,7 +40,7 @@
       "description": "Dashboard Description",
       "status": "active",
       "slug": "dashboard2",
-      "lastUpdated": "2020-05-12"
+      "updatedAt": "2020-05-12"
     },
     {
       "id": 3,
@@ -48,7 +48,7 @@
       "description": "Dashboard Description",
       "status": "archived",
       "slug": "dashboard3",
-      "lastUpdated": "2020-03-22"
+      "updatedAt": "2020-03-22"
     },
     {
       "id": 4,
@@ -56,7 +56,7 @@
       "description": "Dashboard Description",
       "status": "active",
       "slug": "dashboard4",
-      "lastUpdated": "2020-04-12"
+      "updatedAt": 1595192865269
     },
     {
       "id": 5,
@@ -64,7 +64,7 @@
       "description": "Dashboard Description",
       "status": "archived",
       "slug": "dashboard5",
-      "lastUpdated": "2020-07-07"
+      "updatedAt": "2020-07-07"
     }
   ]
 }

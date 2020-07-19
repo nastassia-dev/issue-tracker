@@ -53,7 +53,7 @@ const DashboardCard = ({ dashboard, actions }) => {
 					{dashboard.status}
 				</Typography>
 				<Typography className={classes.meta} color='textSecondary' variant='body2' component='p'>
-					{`Last Updated: ${dashboard.lastUpdated}`}
+					{`Last Updated: ${dashboard.updatedAt || dashboard.createdAt}`}
 				</Typography>
 			</CardContent>
 		</Card>
