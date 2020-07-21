@@ -1,4 +1,11 @@
 export default {
 	tasks: [],
-	dashboards: [],
+	dashboards: {
+		isLoading: false,
+		dashboards: [],
+	},
+	dashboard: {
+		isSaving: false,
+		dashboard: {},
+	}
 }
