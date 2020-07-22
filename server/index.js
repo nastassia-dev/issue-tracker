@@ -17,25 +17,24 @@ function slugify(value) {
 		.replace(/^-+/, "")
 		.replace(/-+$/, "");
 }
+function getTimeStamp() {
+	return new Date().toISOString().slice(0, 10);
+}
+// Simulate delay to test loading states
+server.use(function(req, res, next) {
+	setTimeout(next, 20);
+});
 server.use((req, res, next) => {
 	if (req.method === 'POST') {
-		req.body.createdAt = Date.now();
+		req.body.createdAt = getTimeStamp();
 	}
 	if (req.method === 'PUT') {
-		req.body.updatedAt = Date.now();
+		req.body.updatedAt = getTimeStamp();
 	}
 	// Continue to JSON Server router
 	next();
 });
 
-/*
-server.use((req, res, next) => {
-	if (isAuthorized(req)) {
-		next() // continue to JSON Server router
-	} else {
-		res.sendStatus(401)
-	}
-}) */
 server.post('/dashboards', (req, res, next) => {
 	req.body.status = 'active';
 	req.body.slug = slugify(req.body.title);

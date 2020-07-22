@@ -46,7 +46,12 @@ const ManageDashboardPage = ({ history, saveDashboard }) => {
 		e.preventDefault();
 		if (!isFormValid()) return;
 		saveDashboard(dashboard)
-			.then(() => history.push('/dashboards'));
+			.then(res => {
+				history.push({
+					pathname: `/dashboard/${res.slug}`,
+					state: { dashboard: res },
+				});
+			});
 	};
 
 	return (

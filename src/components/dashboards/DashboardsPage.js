@@ -21,7 +21,7 @@ const DashboardsPage = ({ history, dashboardsState: { dashboards }, loadDashboar
 			state: { dashboard }
 		})
 	};
-	console.log(dashboards);
+
 	const handleArchiveDashboard = dashboard => {
 		saveDashboard({ ...dashboard, status: 'archived' });
 	};

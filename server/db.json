@@ -27,44 +27,81 @@
   ],
   "dashboards": [
     {
-      "id": 1,
+      "id": "abcmockdashboard",
       "title": "Dashboard1",
       "description": "Dashboard Description",
       "status": "active",
       "slug": "dashboard1",
-      "updatedAt": 1595125522454
+      "updatedAt": "2020-06-21"
     },
     {
-      "id": 2,
-      "title": "Dashboard2",
-      "description": "Dashboard Description",
-      "status": "active",
-      "slug": "dashboard2",
-      "updatedAt": "2020-05-12"
-    },
-    {
-      "id": 3,
-      "title": "Dashboard3",
-      "description": "Dashboard Description",
+      "title": "Dashboard 2",
+      "description": "test description",
+      "createdAt": 1595361428382,
       "status": "archived",
-      "slug": "dashboard3",
-      "updatedAt": "2020-03-22"
+      "slug": "dashboard-2",
+      "id": "Ud5KgDJ",
+      "updatedAt": "2020-07-19"
     },
     {
-      "id": 4,
-      "title": "Dashboard4",
-      "description": "Dashboard Description",
-      "status": "active",
-      "slug": "dashboard4",
-      "updatedAt": 1595192865269
-    },
-    {
-      "id": 5,
-      "title": "Dashboard5",
-      "description": "Dashboard Description",
+      "title": "Dashboard 3",
+      "description": "test description 3",
+      "createdAt": 1595361525937,
       "status": "archived",
-      "slug": "dashboard5",
-      "updatedAt": "2020-07-07"
+      "slug": "dashboard-3",
+      "id": "VIWIrU_",
+      "updatedAt": "2020-07-21"
+    }
+  ],
+  "columns": [
+    {
+      "title": "Mock",
+      "order": 1,
+      "createdAt": 1595360694735,
+      "dashboardId": "abcmockdashboard",
+      "id": "abc"
+    },
+    {
+      "title": "TODO",
+      "order": 1,
+      "createdAt": 1595361428412,
+      "dashboardId": "Ud5KgDJ",
+      "id": "GPd135E"
+    },
+    {
+      "title": "In Progress",
+      "order": 2,
+      "createdAt": 1595361428417,
+      "dashboardId": "Ud5KgDJ",
+      "id": "IWS95LW"
+    },
+    {
+      "title": "Done",
+      "order": 3,
+      "createdAt": 1595361428418,
+      "dashboardId": "Ud5KgDJ",
+      "id": "hWOvtve"
+    },
+    {
+      "title": "TODO",
+      "order": 1,
+      "createdAt": 1595361525953,
+      "dashboardId": "VIWIrU_",
+      "id": "hfq1hv6"
+    },
+    {
+      "title": "In Progress",
+      "order": 2,
+      "createdAt": 1595361525954,
+      "dashboardId": "VIWIrU_",
+      "id": "gRF1eIr"
+    },
+    {
+      "title": "Done",
+      "order": 3,
+      "createdAt": 1595361525958,
+      "dashboardId": "VIWIrU_",
+      "id": "cm3s5_A"
     }
   ]
 }

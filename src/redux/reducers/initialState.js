@@ -6,6 +6,8 @@ export default {
 	},
 	dashboard: {
 		isSaving: false,
+		isLoading: true,
+		loadError: null,
 		dashboard: {},
 	}
 }

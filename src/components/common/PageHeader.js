@@ -1,7 +1,7 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 
-const PageHeader = ({ children, color = 'black' }) => {
+const PageHeader = ({ children, color = 'primary' }) => {
 	return (
 		<Typography
 			variant='h5'

@@ -13,6 +13,19 @@ export const loadDashboardsError = error => (
 		error,
 	});
 
+export const resetDashboard = () => ({ type: types.RESET_DASHBOARD });
+export const loadDashboardStart = () => ({ type: types.LOAD_DASHBOARD_START });
+export const loadDashboardSuccess = dashboard => (
+	{
+		type: types.LOAD_DASHBOARD_SUCCESS,
+		dashboard,
+	});
+export const loadDashboardError = error => (
+	{
+		type: types.LOAD_DASHBOARD_ERROR,
+		error,
+	});
+
 export const saveDashboardStart = () => ({ type: types.SAVE_DASHBOARD_START });
 export const saveDashboardSuccess = dashboard => (
 	{
@@ -58,9 +71,20 @@ export function saveDashboard(dashboard) {
 		return dashboardApi
 			.saveDashboard(dashboard)
 			.then(savedDashboard => {
+				if (dashboardId) return savedDashboard;
+				// TODO handle default columns server side when moved to real server
+				return Promise.all([
+					dashboardApi.createColumn(savedDashboard.id, 'TODO', 1),
+					dashboardApi.createColumn(savedDashboard.id, 'In Progress', 2),
+					dashboardApi.createColumn(savedDashboard.id, 'Done', 3)
+				])
+					.then(() => savedDashboard);
+			})
+			.then(savedDashboard => {
 				dashboardId
 					? dispatch(updateDashboardSuccess(savedDashboard))
 					: dispatch(saveDashboardSuccess(savedDashboard));
+				return savedDashboard;
 			})
 			.catch(e => dispatch(saveDashboardError(e)));
 	}
@@ -73,5 +97,22 @@ export function deleteDashboard(dashboard) {
 		return dashboardApi
 			.deleteDashboard(dashboardId)
 			.catch(e => dispatch(deleteDashboardError(e)));
+	}
+}
+
+export function loadDashboard(id) {
+	return function (dispatch) {
+		dispatch(loadDashboardStart());
+		return dashboardApi
+			.loadDashboard(id)
+			.then(res => {
+				const dashboard = res[0];
+				if (!dashboard) {
+					dispatch(loadDashboardError('Not Found'));
+				} else {
+					dispatch(loadDashboardSuccess(dashboard));
+				}
+			})
+			.catch(e => dispatch(loadDashboardError(e)));
 	}
 }
