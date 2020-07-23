@@ -37,7 +37,12 @@ server.use((req, res, next) => {
 
 server.post('/dashboards', (req, res, next) => {
 	req.body.status = 'active';
+	req.body.columnOrder = [];
 	req.body.slug = slugify(req.body.title);
+	next();
+});
+server.post('/dashboards/:id/columns', (req, res, next) => {
+	req.body.taskIds = [];
 	next();
 });
 

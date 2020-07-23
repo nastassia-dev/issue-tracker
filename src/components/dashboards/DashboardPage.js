@@ -2,25 +2,38 @@ import React, { useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import TasksPage from '../tasks/TasksPage';
 import PageHeader from '../common/PageHeader';
 import * as dashboardsActions from '../../redux/actions/dashboardsActions';
+import DashboardDragDropContainer from './DashboardDragDropContainer';
 
 const DashboardPage = ({ location, loadDashboard, resetDashboard, dashboardState }) => {
 	const dashboardTemp = (location.state && location.state.dashboard) || {};
 	const slug = location.pathname.split('/').reverse()[0];
 	const { dashboard, loadError } = dashboardState;
+
 	useEffect(() => {
 		loadDashboard(slug);
 		return resetDashboard;
 	}, [slug]);
 
+	const handleColumnSave = () => {};
+	const handleTaskSave = () => {};
+
 	return (
-		<>
-			{loadError && <Redirect to='/dashboards' />}
-			<PageHeader>{dashboard.title || dashboardTemp.title}</PageHeader>
-			<TasksPage/>
-		</>
+		loadError
+			?
+			<Redirect to='/dashboards'/>
+			:
+			<>
+				<PageHeader>{dashboard.title || dashboardTemp.title}</PageHeader>
+				{dashboard.id &&
+					<DashboardDragDropContainer
+						dashboard={dashboard}
+						handleColumnSave={handleColumnSave}
+						handleTaskSave={handleTaskSave}
+					/>
+				}
+			</>
 	)
 };
 

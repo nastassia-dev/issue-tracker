@@ -1,28 +1,9 @@
 {
   "tasks": [
     {
-      "id": 1,
+      "id": "abcmocktask",
       "title": "Task1",
-      "dashboardId": 1,
-      "group": "Group1"
-    },
-    {
-      "id": 2,
-      "title": "Task2",
-      "dashboardId": 1,
-      "group": "Group1"
-    },
-    {
-      "title": "Task3",
-      "dashboardId": 1,
-      "group": "Group1",
-      "id": 3
-    },
-    {
-      "title": "Task4",
-      "dashboardId": 2,
-      "group": "Group1",
-      "id": 4
+      "content": "Create more tasks"
     }
   ],
   "dashboards": [
@@ -32,16 +13,18 @@
       "description": "Dashboard Description",
       "status": "active",
       "slug": "dashboard1",
-      "updatedAt": "2020-06-21"
+      "updatedAt": "2020-06-21",
+      "columnOrder": []
     },
     {
-      "title": "Dashboard 2",
+      "title": "Dashboard 2 - TEST",
       "description": "test description",
       "createdAt": 1595361428382,
       "status": "archived",
       "slug": "dashboard-2",
       "id": "Ud5KgDJ",
-      "updatedAt": "2020-07-19"
+      "updatedAt": "2020-07-19",
+      "columnOrder": ["GPd135E", "IWS95LW", "hWOvtve"]
     },
     {
       "title": "Dashboard 3",
@@ -50,7 +33,8 @@
       "status": "archived",
       "slug": "dashboard-3",
       "id": "VIWIrU_",
-      "updatedAt": "2020-07-21"
+      "updatedAt": "2020-07-21",
+      "columnOrder": []
     }
   ],
   "columns": [
@@ -59,49 +43,56 @@
       "order": 1,
       "createdAt": 1595360694735,
       "dashboardId": "abcmockdashboard",
-      "id": "abc"
+      "id": "abc",
+      "taskIds": []
     },
     {
       "title": "TODO",
       "order": 1,
       "createdAt": 1595361428412,
       "dashboardId": "Ud5KgDJ",
-      "id": "GPd135E"
+      "id": "GPd135E",
+      "taskIds": []
     },
     {
       "title": "In Progress",
       "order": 2,
       "createdAt": 1595361428417,
       "dashboardId": "Ud5KgDJ",
-      "id": "IWS95LW"
+      "id": "IWS95LW",
+      "taskIds": []
     },
     {
       "title": "Done",
       "order": 3,
       "createdAt": 1595361428418,
       "dashboardId": "Ud5KgDJ",
-      "id": "hWOvtve"
+      "id": "hWOvtve",
+      "taskIds": []
     },
     {
       "title": "TODO",
       "order": 1,
       "createdAt": 1595361525953,
       "dashboardId": "VIWIrU_",
-      "id": "hfq1hv6"
+      "id": "hfq1hv6",
+      "taskIds": []
     },
     {
       "title": "In Progress",
       "order": 2,
       "createdAt": 1595361525954,
       "dashboardId": "VIWIrU_",
-      "id": "gRF1eIr"
+      "id": "gRF1eIr",
+      "taskIds": []
     },
     {
       "title": "Done",
       "order": 3,
       "createdAt": 1595361525958,
       "dashboardId": "VIWIrU_",
-      "id": "cm3s5_A"
+      "id": "cm3s5_A",
+      "taskIds": []
     }
   ]
 }
