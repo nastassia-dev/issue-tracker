@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { DragDropContext } from 'react-beautiful-dnd';
 import Grid from '@material-ui/core/Grid';
 
@@ -30,7 +30,6 @@ const DashboardDragDropContainer = ({ dashboard: { columns, columnOrder } }) => 
 			</Grid>
 		</DragDropContext>
 	)
-
 };
 
 export default DashboardDragDropContainer;

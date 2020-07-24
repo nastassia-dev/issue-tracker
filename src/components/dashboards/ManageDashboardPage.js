@@ -67,6 +67,7 @@ const ManageDashboardPage = ({ history, saveDashboard }) => {
 				onChange={handleChange}
 				onFocus={handleFocus}
 				{...fieldProps}
+				autoFocus
 			/>
 			<TextField
 				name='description'

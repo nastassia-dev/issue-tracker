@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import clsx from 'clsx';
 import Toolbar from '@material-ui/core/Toolbar';
 import AppBar from '@material-ui/core/AppBar';
@@ -42,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const TopBar = ({ open, handleDrawerOpen }) => {
+const TopBar = ({ open, handleDrawerOpen, dashboard }) => {
 	const classes = useStyles();
 
 	return (
@@ -57,7 +58,7 @@ const TopBar = ({ open, handleDrawerOpen }) => {
 						<MenuIcon/>
 					</IconButton>
 					<Typography component='h1' variant='h6' color='inherit' noWrap className={classes.title}>
-						Nastassia's Workspace
+						{dashboard.title || 'My Workspace'}
 					</Typography>
 					<IconButton color='inherit'>
 						<Badge badgeContent={2} max={10} color='secondary'>
@@ -79,4 +80,8 @@ const TopBar = ({ open, handleDrawerOpen }) => {
 	);
 };
 
-export default TopBar;
+const mapStateToProps = (state) => ({
+	dashboard: state.dashboard.dashboard,
+});
+
+export default connect(mapStateToProps)(TopBar);

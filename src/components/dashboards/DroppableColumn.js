@@ -4,11 +4,14 @@ import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
 
 import DraggableTask from './DraggableTask';
+import EditableTitle from '../common/EditableTitle';
 
 const useStyles = makeStyles(() => ({
 	column: {
 		height: 600,
 		width: 300,
+		padding: 10,
+		backgroundColor: '#e3f1ff',
 	},
 }));
 
@@ -22,7 +25,7 @@ const DroppableColumn = ({ column, tasks: realTasks }) => {
 		: [];
 	return (
 		<Paper className={classes.column}>
-			<h2>{column.title}</h2>
+			<EditableTitle title={column.title}/>
 			<Droppable
 				droppableId={column.id}
 			>

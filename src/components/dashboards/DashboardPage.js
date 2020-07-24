@@ -2,12 +2,11 @@ import React, { useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import PageHeader from '../common/PageHeader';
 import * as dashboardsActions from '../../redux/actions/dashboardsActions';
 import DashboardDragDropContainer from './DashboardDragDropContainer';
 
 const DashboardPage = ({ location, loadDashboard, resetDashboard, dashboardState }) => {
-	const dashboardTemp = (location.state && location.state.dashboard) || {};
+	// const dashboardTemp = (location.state && location.state.dashboard) || {};
 	const slug = location.pathname.split('/').reverse()[0];
 	const { dashboard, loadError } = dashboardState;
 
@@ -25,7 +24,6 @@ const DashboardPage = ({ location, loadDashboard, resetDashboard, dashboardState
 			<Redirect to='/dashboards'/>
 			:
 			<>
-				<PageHeader>{dashboard.title || dashboardTemp.title}</PageHeader>
 				{dashboard.id &&
 					<DashboardDragDropContainer
 						dashboard={dashboard}
