@@ -1,10 +1,12 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Droppable } from 'react-beautiful-dnd';
 import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
 
 import DraggableTask from './DraggableTask';
 import EditableTitle from '../common/EditableTitle';
+import * as dashboardsActions from '../../redux/actions/dashboardsActions';
 
 const useStyles = makeStyles(() => ({
 	column: {
@@ -15,7 +17,7 @@ const useStyles = makeStyles(() => ({
 	},
 }));
 
-const DroppableColumn = ({ column, tasks: realTasks }) => {
+const DroppableColumn = ({ column, tasks: realTasks, saveColumn }) => {
 	const classes = useStyles();
 	const mockTasks = (column.id === 'GPd135E')
 		? [
@@ -23,9 +25,15 @@ const DroppableColumn = ({ column, tasks: realTasks }) => {
 			{id: "ae", content: 'task 4'}, {id: "af", content: 'task 5'}, {id: "ag", content: 'task 6'},
 		]
 		: [];
+	const isTitleValid = value => true;
+	const onTitleSave = value => saveColumn({...column, title: value});
 	return (
 		<Paper className={classes.column}>
-			<EditableTitle title={column.title}/>
+			<EditableTitle
+				title={column.title}
+				isTitleValid={isTitleValid}
+				onTitleSave={onTitleSave}
+			/>
 			<Droppable
 				droppableId={column.id}
 			>
@@ -46,4 +54,9 @@ const DroppableColumn = ({ column, tasks: realTasks }) => {
 
 };
 
-export default DroppableColumn;
+const mapStateToProps = state => state;
+const mapDispatchToProps = (dispatch) => ({
+	saveColumn: (column) => dispatch(dashboardsActions.saveColumn(column)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(DroppableColumn);

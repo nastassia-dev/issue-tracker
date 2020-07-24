@@ -24,7 +24,11 @@
       "slug": "dashboard-2",
       "id": "Ud5KgDJ",
       "updatedAt": "2020-07-19",
-      "columnOrder": ["GPd135E", "IWS95LW", "hWOvtve"]
+      "columnOrder": [
+        "GPd135E",
+        "IWS95LW",
+        "hWOvtve"
+      ]
     },
     {
       "title": "Dashboard 3",
@@ -47,28 +51,31 @@
       "taskIds": []
     },
     {
-      "title": "TODO",
+      "title": "TODO 77",
       "order": 1,
       "createdAt": 1595361428412,
       "dashboardId": "Ud5KgDJ",
       "id": "GPd135E",
-      "taskIds": []
+      "taskIds": [],
+      "updatedAt": "2020-07-24"
     },
     {
-      "title": "In Progress",
+      "title": "In Progress TEST",
       "order": 2,
       "createdAt": 1595361428417,
       "dashboardId": "Ud5KgDJ",
       "id": "IWS95LW",
-      "taskIds": []
+      "taskIds": [],
+      "updatedAt": "2020-07-24"
     },
     {
-      "title": "Done",
+      "title": "Done!",
       "order": 3,
       "createdAt": 1595361428418,
       "dashboardId": "Ud5KgDJ",
       "id": "hWOvtve",
-      "taskIds": []
+      "taskIds": [],
+      "updatedAt": "2020-07-24"
     },
     {
       "title": "TODO",

@@ -54,6 +54,15 @@ export const deleteDashboardError = error => (
 		error,
 	});
 
+export const saveColumnSuccess = column => ({
+	type: types.SAVE_COLUMN_SUCCESS,
+	column,
+});
+export const saveColumnError = error => ({
+	type: types.SAVE_COLUMN_ERROR,
+	error,
+});
+
 export function loadDashboards() {
 	return function (dispatch) {
 		dispatch(loadDashboardsStart());
@@ -114,5 +123,14 @@ export function loadDashboard(id) {
 				}
 			})
 			.catch(e => dispatch(loadDashboardError(e)));
+	}
+}
+
+export function saveColumn(column) {
+	return function (dispatch) {
+		return dashboardApi
+			.saveColumn(column)
+			.then(savedColumn => dispatch(saveColumnSuccess(savedColumn)))
+			.catch(e => dispatch(saveColumnError(e)));
 	}
 }

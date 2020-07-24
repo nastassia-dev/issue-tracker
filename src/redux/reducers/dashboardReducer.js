@@ -32,6 +32,16 @@ export default function dashboardReducer(state = initialState.dashboard, action)
 				isSaving: false,
 				dashboard: {...action.dashboard},
 			};
+		case types.SAVE_COLUMN_SUCCESS: {
+			return {
+				...state,
+				dashboard: {
+					...state.dashboard,
+					columns: state.dashboard.columns
+						.map(c => (c.id === action.column) ? action.column : c)
+				},
+			}
+		}
 		default:
 			return state;
 	}

@@ -39,11 +39,22 @@ const loadDashboard = (slug) => {
 		.catch(handleError);
 };
 
+const saveColumn = column => {
+	return fetch(`/columns/${column.id}`, {
+		method: 'PUT',
+		headers: { 'content-type': 'application/json' },
+		body: JSON.stringify(column)
+	})
+		.then(handleResponse)
+		.catch(handleError);
+};
+
 export default {
 	loadDashboards,
 	loadDashboard,
 	saveDashboard,
 	deleteDashboard,
 	createColumn,
+	saveColumn,
 }
 
