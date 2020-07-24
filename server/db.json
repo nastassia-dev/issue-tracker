@@ -1,21 +1,13 @@
 {
   "tasks": [
     {
-      "id": "abcmocktask",
-      "title": "Task1",
-      "content": "Create more tasks"
+      "content": "Add create task",
+      "createdAt": "2020-07-24",
+      "columnId": "IWS95LW",
+      "id": "D3jgSjT"
     }
   ],
   "dashboards": [
-    {
-      "id": "abcmockdashboard",
-      "title": "Dashboard1",
-      "description": "Dashboard Description",
-      "status": "active",
-      "slug": "dashboard1",
-      "updatedAt": "2020-06-21",
-      "columnOrder": []
-    },
     {
       "title": "Dashboard 2 - TEST",
       "description": "test description",
@@ -43,15 +35,7 @@
   ],
   "columns": [
     {
-      "title": "Mock",
-      "order": 1,
-      "createdAt": 1595360694735,
-      "dashboardId": "abcmockdashboard",
-      "id": "abc",
-      "taskIds": []
-    },
-    {
-      "title": "TODO 77",
+      "title": "TODO",
       "order": 1,
       "createdAt": 1595361428412,
       "dashboardId": "Ud5KgDJ",
@@ -60,16 +44,18 @@
       "updatedAt": "2020-07-24"
     },
     {
-      "title": "In Progress TEST",
+      "title": "In Progress",
       "order": 2,
       "createdAt": 1595361428417,
       "dashboardId": "Ud5KgDJ",
       "id": "IWS95LW",
-      "taskIds": [],
+      "taskIds": [
+        "D3jgSjT"
+      ],
       "updatedAt": "2020-07-24"
     },
     {
-      "title": "Done!",
+      "title": "Done",
       "order": 3,
       "createdAt": 1595361428418,
       "dashboardId": "Ud5KgDJ",

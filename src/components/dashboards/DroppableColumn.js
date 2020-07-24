@@ -7,6 +7,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import DraggableTask from './DraggableTask';
 import EditableTitle from '../common/EditableTitle';
 import * as dashboardsActions from '../../redux/actions/dashboardsActions';
+import CreateTaskForm from './CreateTaskForm';
 
 const useStyles = makeStyles(() => ({
 	column: {
@@ -17,7 +18,7 @@ const useStyles = makeStyles(() => ({
 	},
 }));
 
-const DroppableColumn = ({ column, tasks: realTasks, saveColumn }) => {
+const DroppableColumn = ({ column, ownTasks: tasks, saveColumn, saveTask, ...props }) => {
 	const classes = useStyles();
 	const mockTasks = (column.id === 'GPd135E')
 		? [
@@ -27,6 +28,7 @@ const DroppableColumn = ({ column, tasks: realTasks, saveColumn }) => {
 		: [];
 	const isTitleValid = value => true;
 	const onTitleSave = value => saveColumn({...column, title: value});
+
 	return (
 		<Paper className={classes.column}>
 			<EditableTitle
@@ -42,13 +44,14 @@ const DroppableColumn = ({ column, tasks: realTasks, saveColumn }) => {
 						ref={provided.innerRef}
 						{...provided.droppableProps}
 					>
-						{mockTasks.map((task, index) => (
-							<DraggableTask key={task.id} task={task} index={index}/>
+						{(tasks || []).map((task, index) => (
+							<DraggableTask key={task.id} task={task} index={index} />
 						))}
 						{provided.placeholder}
 					</div>
 				)}
 			</Droppable>
+			<CreateTaskForm saveTask={saveTask} column={column} />
 		</Paper>
 	)
 
@@ -57,6 +60,7 @@ const DroppableColumn = ({ column, tasks: realTasks, saveColumn }) => {
 const mapStateToProps = state => state;
 const mapDispatchToProps = (dispatch) => ({
 	saveColumn: (column) => dispatch(dashboardsActions.saveColumn(column)),
+	saveTask: (column, task) => dispatch(dashboardsActions.saveTask(column, task)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DroppableColumn);

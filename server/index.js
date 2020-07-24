@@ -2,6 +2,7 @@ const jsonServer = require("json-server");
 const server = jsonServer.create();
 const path = require("path");
 const router = jsonServer.router(path.join(__dirname, "db.json"));
+// const db = require(path.join(__dirname, "db.json"));
 
 const middlewares = jsonServer.defaults();
 
@@ -44,6 +45,32 @@ server.post('/dashboards', (req, res, next) => {
 server.post('/dashboards/:id/columns', (req, res, next) => {
 	req.body.taskIds = [];
 	next();
+});
+server.get('/dashboards', (req, res, next) => {
+	const slug = req.query.slug;
+	const db = router.db;
+	if (slug) {
+		const dashboardsCollection = db.get('dashboards');
+		const dashboard = dashboardsCollection.find({ slug }).value();
+		if (!dashboard) {
+			next();
+		} else {
+			const columnsCollection = db.get('columns');
+			const tasksCollection = db.get('tasks');
+			const columns = dashboard.columnOrder.map(id => columnsCollection.find({ id }).value());
+			const taskIds = columns.reduce((a, c) => ([...a, ...c.taskIds]), []);
+			const tasks = taskIds.map(id => tasksCollection.find({ id }).value());
+			const data = [{
+				...dashboard,
+				columns,
+				tasks,
+			}];
+			res.status(200);
+			res.send(data);
+		}
+	} else {
+		next();
+	}
 });
 
 server.use(router);

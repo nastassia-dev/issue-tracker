@@ -49,6 +49,31 @@ const saveColumn = column => {
 		.catch(handleError);
 };
 
+const saveTask = (column, task) => {
+	return fetch(`/columns/${column.id}/tasks`, {
+			method: 'POST',
+			headers: {'content-type': 'application/json'},
+			body: JSON.stringify(task),
+		})
+		.then(handleResponse)
+		.then(savedTask => {
+			const taskId = savedTask.id;
+			const taskIds = [...column.taskIds, taskId];
+
+			return fetch(`/columns/${column.id}`, {
+				method: 'PUT',
+				headers: {'content-type': 'application/json'},
+				body: JSON.stringify({...column, taskIds }),
+			})
+				.then(handleResponse)
+				.then(savedColumn => ({
+					task: savedTask,
+					column: savedColumn
+				}))
+		})
+		.catch(handleError);
+};
+
 export default {
 	loadDashboards,
 	loadDashboard,
@@ -56,5 +81,6 @@ export default {
 	deleteDashboard,
 	createColumn,
 	saveColumn,
+	saveTask,
 }
 

@@ -63,6 +63,17 @@ export const saveColumnError = error => ({
 	error,
 });
 
+export const saveTaskStart = () => ({ type: types.SAVE_TASK_START });
+export const saveTaskSuccess = ({ task, column }) => ({
+	type: types.SAVE_TASK_SUCCESS,
+	task,
+	column,
+});
+export const saveTaskError = error => ({
+	type: types.SAVE_TASK_ERROR,
+	error,
+});
+
 export function loadDashboards() {
 	return function (dispatch) {
 		dispatch(loadDashboardsStart());
@@ -70,7 +81,7 @@ export function loadDashboards() {
 			.loadDashboards()
 			.then(dashboards => dispatch(loadDashboardsSuccess(dashboards)))
 			.catch(e => dispatch(loadDashboardsError(e)));
-	}
+	};
 }
 
 export function saveDashboard(dashboard) {
@@ -96,7 +107,7 @@ export function saveDashboard(dashboard) {
 				return savedDashboard;
 			})
 			.catch(e => dispatch(saveDashboardError(e)));
-	}
+	};
 }
 
 export function deleteDashboard(dashboard) {
@@ -106,7 +117,7 @@ export function deleteDashboard(dashboard) {
 		return dashboardApi
 			.deleteDashboard(dashboardId)
 			.catch(e => dispatch(deleteDashboardError(e)));
-	}
+	};
 }
 
 export function loadDashboard(id) {
@@ -123,7 +134,7 @@ export function loadDashboard(id) {
 				}
 			})
 			.catch(e => dispatch(loadDashboardError(e)));
-	}
+	};
 }
 
 export function saveColumn(column) {
@@ -132,5 +143,15 @@ export function saveColumn(column) {
 			.saveColumn(column)
 			.then(savedColumn => dispatch(saveColumnSuccess(savedColumn)))
 			.catch(e => dispatch(saveColumnError(e)));
-	}
+	};
+}
+
+export function saveTask(column, task) {
+	return function (dispatch) {
+		dispatch(saveTaskStart());
+		return dashboardApi
+			.saveTask(column, task)
+			.then(res => dispatch(saveTaskSuccess(res)))
+			.catch(e => dispatch(saveTaskError(e)));
+	};
 }

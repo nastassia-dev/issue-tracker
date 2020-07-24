@@ -4,7 +4,7 @@ import Grid from '@material-ui/core/Grid';
 
 import DroppableColumn from './DroppableColumn';
 
-const DashboardDragDropContainer = ({ dashboard: { columns, columnOrder } }) => {
+const DashboardDragDropContainer = ({ dashboard: { columns, tasks, columnOrder } }) => {
 	const onDragStart = () => {};
 	const onDragUpdate = () => {};
 	const onDragEnd = () => {};
@@ -18,11 +18,13 @@ const DashboardDragDropContainer = ({ dashboard: { columns, columnOrder } }) => 
 			<Grid container justify='flex-start' spacing={1}>
 				{columnOrder.map((columnId, index) => {
 					const column = columns.find(c => c.id === columnId);
+					const ownTasks = tasks.filter(t => t.columnId === columnId);
+
 					return (
 						<Grid item key={columnId}>
 							<DroppableColumn
 								column={column}
-								tasks={column.taskIds}
+								ownTasks={ownTasks}
 							/>
 						</Grid>
 					)
