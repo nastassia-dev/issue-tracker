@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import * as dashboardsActions from '../../redux/actions/dashboardsActions';
 import DashboardDragDropContainer from './DashboardDragDropContainer';
 
-const DashboardPage = ({ location, loadDashboard, resetDashboard, dashboardState }) => {
+const DashboardPage = ({ location, loadDashboard, saveColumnBulk, resetDashboard, dashboardState }) => {
 	// const dashboardTemp = (location.state && location.state.dashboard) || {};
 	const slug = location.pathname.split('/').reverse()[0];
 	const { dashboard, loadError } = dashboardState;
@@ -15,7 +15,7 @@ const DashboardPage = ({ location, loadDashboard, resetDashboard, dashboardState
 		return resetDashboard;
 	}, [slug]);
 
-	const handleColumnSave = () => {};
+	const handleColumnSave = (columns) => saveColumnBulk(columns);
 	const handleTaskSave = () => {};
 
 	return (
@@ -42,6 +42,7 @@ const mapDispatchToProps = dispatch => {
 	return {
 		loadDashboard: (id) => dispatch(dashboardsActions.loadDashboard(id)),
 		resetDashboard: () => dispatch(dashboardsActions.resetDashboard()),
+		saveColumnBulk: (columns) => dispatch(dashboardsActions.saveColumnBulk(columns)),
 	}
 };
 

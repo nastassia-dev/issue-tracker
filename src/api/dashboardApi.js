@@ -48,6 +48,19 @@ const saveColumn = column => {
 		.then(handleResponse)
 		.catch(handleError);
 };
+const saveColumnBulk = columns => {
+	const promises = columns.map(c => {
+		 return fetch(`/columns/${c.id}`, {
+			 method: 'PUT',
+			 headers: { 'content-type': 'application/json' },
+			 body: JSON.stringify(c)
+		 })
+			 .then(handleResponse);
+	});
+	return Promise
+		.all(promises)
+		.catch(handleError);
+};
 
 const saveTask = (column, task) => {
 	const url = task.id
@@ -86,6 +99,7 @@ export default {
 	deleteDashboard,
 	createColumn,
 	saveColumn,
+	saveColumnBulk,
 	saveTask,
 }
 

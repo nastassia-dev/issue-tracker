@@ -6,7 +6,7 @@ const dbData = {
 	columns: [],
 };
 
-for (let i = 1; i <= 2; i++) {
+for (let i = 1; i <= 10; i++) {
 	const dashboardId = faker.random.uuid();
 	const columnOrder = [];
 	['ToDo', 'In Progress', 'Done'].forEach(title => {
@@ -25,7 +25,7 @@ for (let i = 1; i <= 2; i++) {
 		title: faker.lorem.words(),
 		status: i%2 ? 'active': 'archived',
 		slug: faker.lorem.slug(),
-		description: faker.lorem.sentences(),
+		description: faker.lorem.sentence(),
 		columnOrder,
 		createdAt: faker.date.recent().toISOString().slice(0, 10),
 	};

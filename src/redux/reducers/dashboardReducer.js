@@ -33,6 +33,21 @@ export default function dashboardReducer(state = initialState.dashboard, action)
 				dashboard: {...action.dashboard},
 			};
 		case types.SAVE_COLUMN_SUCCESS:
+			if (Array.isArray(action.column)) {
+				const ids = state.dashboard.columns.map(c => c.id);
+				const columns = [...state.dashboard.columns];
+				action.column.forEach(c => {
+					const index = ids.indexOf(c.id);
+					columns.splice(index, 1, c);
+				});
+				return {
+					...state,
+					dashboard: {
+						...state.dashboard,
+						columns,
+					}
+				}
+			}
 			return {
 				...state,
 				dashboard: {

@@ -145,6 +145,14 @@ export function saveColumn(column) {
 			.catch(e => dispatch(saveColumnError(e)));
 	};
 }
+export function saveColumnBulk(columns) {
+	return function (dispatch) {
+		return dashboardApi
+			.saveColumnBulk(columns)
+			.then(savedColumns => dispatch(saveColumnSuccess(savedColumns)))
+			.catch(e => dispatch(saveColumnError(e)));
+	};
+}
 
 export function saveTask(column, task) {
 	return function (dispatch) {
