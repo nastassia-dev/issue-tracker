@@ -42,13 +42,21 @@ export default function dashboardReducer(state = initialState.dashboard, action)
 				},
 			};
 		case types.SAVE_TASK_SUCCESS:
+			// TODO split UPDATE(SAVE) & CREATE
+			const columns = action.column
+				? state.dashboard.columns
+					.map(c => (c.id === action.column) ? action.column : c)
+				: state.dashboard.columns;
+			const task = state.dashboard.tasks.find(t => t.id === action.task.id);
+			const tasks = task
+				? state.dashboard.tasks.map(t => (t.id === action.task.id) ? action.task : t)
+				: [...state.dashboard.tasks, action.task] ;
 			return {
 				...state,
 				dashboard: {
 					...state.dashboard,
-					columns: state.dashboard.columns
-						.map(c => (c.id === action.column) ? action.column : c),
-					tasks: [...state.dashboard.tasks, action.task],
+					columns,
+					tasks,
 				}
 			};
 		default:

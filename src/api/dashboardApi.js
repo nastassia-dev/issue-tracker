@@ -50,13 +50,18 @@ const saveColumn = column => {
 };
 
 const saveTask = (column, task) => {
-	return fetch(`/columns/${column.id}/tasks`, {
-			method: 'POST',
+	const url = task.id
+		? `/tasks/${task.id}`
+		: `/columns/${column.id}/tasks`;
+	return fetch(url, {
+			method: task.id ? 'PUT' : 'POST',
 			headers: {'content-type': 'application/json'},
 			body: JSON.stringify(task),
 		})
 		.then(handleResponse)
 		.then(savedTask => {
+			if (task.id) return { task: savedTask };
+
 			const taskId = savedTask.id;
 			const taskIds = [...column.taskIds, taskId];
 

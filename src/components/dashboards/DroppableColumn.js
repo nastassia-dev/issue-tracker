@@ -7,7 +7,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import DraggableTask from './DraggableTask';
 import EditableTitle from '../common/EditableTitle';
 import * as dashboardsActions from '../../redux/actions/dashboardsActions';
-import CreateTaskForm from './CreateTaskForm';
+import ManageTaskContainer from './ManageTaskContainer';
 
 const useStyles = makeStyles(() => ({
 	column: {
@@ -28,7 +28,9 @@ const DroppableColumn = ({ column, ownTasks: tasks, saveColumn, saveTask, ...pro
 		: [];
 	const isTitleValid = value => true;
 	const onTitleSave = value => saveColumn({...column, title: value});
-
+	const handleTaskSave = task => {
+		saveTask(column, task);
+	};
 	return (
 		<Paper className={classes.column}>
 			<EditableTitle
@@ -45,13 +47,18 @@ const DroppableColumn = ({ column, ownTasks: tasks, saveColumn, saveTask, ...pro
 						{...provided.droppableProps}
 					>
 						{(tasks || []).map((task, index) => (
-							<DraggableTask key={task.id} task={task} index={index} />
+							<DraggableTask
+								key={task.id}
+								task={task}
+								index={index}
+								saveTask={handleTaskSave}
+							/>
 						))}
 						{provided.placeholder}
 					</div>
 				)}
 			</Droppable>
-			<CreateTaskForm saveTask={saveTask} column={column} />
+			<ManageTaskContainer saveTask={handleTaskSave}/>
 		</Paper>
 	)
 
