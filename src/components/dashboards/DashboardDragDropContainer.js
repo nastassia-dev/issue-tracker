@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { DragDropContext } from 'react-beautiful-dnd';
 import Grid from '@material-ui/core/Grid';
 
@@ -7,6 +7,9 @@ import DroppableColumn from './DroppableColumn';
 const DashboardDragDropContainer = ({ dashboard }) => {
 	const { columns, tasks, columnOrder } = dashboard;
 	const [all, setAll] = useState(dashboard);
+	useEffect(() => {
+		setAll(dashboard);
+	}, [dashboard]);
 
 	const onDragStart = () => {};
 	const onDragUpdate = () => {};
