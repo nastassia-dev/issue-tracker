@@ -38,14 +38,14 @@ export default function dashboardReducer(state = initialState.dashboard, action)
 				dashboard: {
 					...state.dashboard,
 					columns: state.dashboard.columns
-						.map(c => (c.id === action.column) ? action.column : c),
+						.map(c => (c.id === action.column.id) ? action.column : c),
 				},
 			};
 		case types.SAVE_TASK_SUCCESS:
 			// TODO split UPDATE(SAVE) & CREATE
 			const columns = action.column
 				? state.dashboard.columns
-					.map(c => (c.id === action.column) ? action.column : c)
+					.map(c => (c.id === action.column.id) ? action.column : c)
 				: state.dashboard.columns;
 			const task = state.dashboard.tasks.find(t => t.id === action.task.id);
 			const tasks = task
