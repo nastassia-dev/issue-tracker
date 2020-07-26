@@ -13,17 +13,14 @@ const fieldProps = {
 	required: true,
 	InputLabelProps: {shrink: true},
 };
-const defaultDashboard = {
-	title: '',
-	description: '',
-};
+const defaultColumn = { title: '' };
 
-const ManageDashboardDialog = ({ open, handleSave, handleClose }) => {
-	const [dashboard, setDashboard] = useState(defaultDashboard);
+const ManageColumnDialog = ({ open, handleSave, handleClose }) => {
+	const [column, setColumn] = useState(defaultColumn);
 	const [errors, setErrors] = useState({});
 
 	const handleChange = ({ target: { name, value } }) => {
-		setDashboard(prevState => ({
+		setColumn(prevState => ({
 			...prevState,
 			[name]: value,
 		}));
@@ -35,44 +32,33 @@ const ManageDashboardDialog = ({ open, handleSave, handleClose }) => {
 		}))
 	};
 	const isFormValid = () => {
-		const { title, description } = dashboard;
+		const { title } = column;
 		const errors = {};
 		if (!title) errors.title = true;
-		if (!description) errors.description = true;
 		setErrors(errors);
 		return Object.keys(errors).length === 0;
 	};
 	const handleSaveConfirm = () => {
 		if (!isFormValid()) return;
-		handleSave(dashboard);
+		handleSave(column);
 	};
 
 	return (
 		<Dialog fullWidth open={open} onClose={handleClose}>
 			<DialogTitle style={{paddingBottom: 0}}>
-				Add Dashboard
+				Add Column
 			</DialogTitle>
 			<DialogContent>
 				<TextField
+					autoComplete='off'
 					name='title'
 					label='Title'
 					error={errors.title}
-					value={dashboard.title}
+					value={column.title}
 					onChange={handleChange}
 					onFocus={handleFocus}
 					{...fieldProps}
 					autoFocus
-				/>
-				<TextField
-					name='description'
-					label='Description'
-					error={errors.description}
-					value={dashboard.description}
-					onChange={handleChange}
-					{...fieldProps}
-					multiline
-					rows={3}
-					rowsMax={6}
 				/>
 			</DialogContent>
 			<DialogActions>
@@ -87,4 +73,4 @@ const ManageDashboardDialog = ({ open, handleSave, handleClose }) => {
 	)
 };
 
-export default ManageDashboardDialog;
+export default ManageColumnDialog;

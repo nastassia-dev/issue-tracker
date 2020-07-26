@@ -3,7 +3,7 @@ import { Draggable } from 'react-beautiful-dnd';
 import { makeStyles } from '@material-ui/core/styles';
 import EditIcon from '@material-ui/icons/Edit';
 import IconButton from '@material-ui/core/IconButton';
-import TaskDialog from './TaskDialog';
+import ManageTaskDialog from './ManageTaskDialog';
 
 const useStyles = makeStyles(() => ({
 	task: {
@@ -26,7 +26,7 @@ const Task = ({ task, innerRef, saveTask, ...props}) => {
 		<div className={classes.task} ref={innerRef} {...props}>
 			{
 				isOpen &&
-				<TaskDialog
+				<ManageTaskDialog
 					isOpen={isOpen}
 					setIsOpen={setIsOpen}
 					saveTask={saveTask}

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import IconButton from '@material-ui/core/IconButton';
 import AddIcon from '@material-ui/icons/Add';
 import Tooltip from '@material-ui/core/Tooltip';
-import TaskDialog from './TaskDialog';
+import ManageTaskDialog from './ManageTaskDialog';
 
 const ManageTaskContainer = ({ saveTask }) => {
 	const [isOpen, setIsOpen] = useState(false);
@@ -10,7 +10,7 @@ const ManageTaskContainer = ({ saveTask }) => {
 	return (
 		isOpen
 			?
-				<TaskDialog
+				<ManageTaskDialog
 					isOpen={isOpen}
 					setIsOpen={setIsOpen}
 					saveTask={saveTask}

@@ -33,6 +33,17 @@ export default function dashboardReducer(state = initialState.dashboard, action)
 				dashboard: {...action.dashboard},
 			};
 		case types.SAVE_COLUMN_SUCCESS:
+			// TODO split create and update
+			if (action.column.dashboard) {
+				return {
+					...state,
+					dashboard: {
+						...state.dashboard,
+						...action.column.dashboard,
+						columns: [...state.dashboard.columns, action.column.column],
+					}
+				};
+			}
 			if (Array.isArray(action.column)) {
 				const ids = state.dashboard.columns.map(c => c.id);
 				const columns = [...state.dashboard.columns];

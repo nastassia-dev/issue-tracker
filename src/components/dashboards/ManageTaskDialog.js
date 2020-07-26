@@ -6,7 +6,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import TextField from '@material-ui/core/TextField';
 
-const TaskDialog = ({ task = {}, isOpen, setIsOpen, saveTask }) => {
+const ManageTaskDialog = ({ task = {}, isOpen, setIsOpen, saveTask }) => {
 	const [content, setContent] = useState(task.content);
 	const [hasError, setHasError] = useState(false);
 
@@ -61,4 +61,4 @@ const TaskDialog = ({ task = {}, isOpen, setIsOpen, saveTask }) => {
 	);
 };
 
-export default TaskDialog;
+export default ManageTaskDialog;

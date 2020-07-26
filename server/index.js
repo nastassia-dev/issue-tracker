@@ -115,6 +115,30 @@ server.post('/dashboards/columns', (req, res) => {
 	res.send({ ...dashboard, columns, tasks: [task] });
 });
 
+server.post('/columns', (req, res) => {
+	const dashboardId = req.body.dashboardId;
+	const db = router.db;
+	const dashboardsCollection = db.get('dashboards');
+	const columnsCollection = db.get('columns');
+	const createdAt = getTimeStamp();
+	const columnId = generateUuid();
+	const column = {
+		id: columnId,
+		title: req.body.title,
+		taskIds: [],
+		dashboardId,
+		createdAt,
+	};
+	columnsCollection.push(column).write();
+	const dashboard = dashboardsCollection.find({ id: dashboardId }).value();
+	const columnOrder = [...dashboard.columnOrder, columnId];
+	dashboardsCollection.find({ id: dashboardId })
+		.assign({ columnOrder: columnOrder}).write();
+
+	res.status(201);
+	res.send({ dashboard, column });
+});
+
 server.use(router);
 server.listen(3111, () => {
 	console.log('JSON Server is running')

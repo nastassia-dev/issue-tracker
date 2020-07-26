@@ -9,19 +9,16 @@ import ManageDashboardDialog from './ManageDashboardDialog';
 import * as dashboardActions from '../../redux/actions/dashboardsActions';
 
 const DashboardsPage = ({ history, dashboardsState: { dashboards }, loadDashboards, saveDashboard, deleteDashboard }) => {
-	const [isModalOpen, setIsModalOpen] = useState(false);
+	const [isDialogOpen, setIsDialogOpen] = useState(false);
 	useEffect(() => {
 		loadDashboards();
 	}, []);
-	const handleAddIconClick = (e) => {
-		e.preventDefault();
-		setIsModalOpen(true);
-	};
+	const handleAddIconClick = () => setIsDialogOpen(true);
 	const handleDashboardSave = dashboard => {
 		//TODO change to optimistic update
 		saveDashboard(dashboard)
 			.then(res => {
-				setIsModalOpen(false);
+				setIsDialogOpen(false);
 				history.push({
 					pathname: `/dashboard/${res.slug}`,
 					state: { dashboard: res },
@@ -48,19 +45,19 @@ const DashboardsPage = ({ history, dashboardsState: { dashboards }, loadDashboar
 	return (
 		<>
 			{
-				isModalOpen
+				isDialogOpen
 				&&
 				<ManageDashboardDialog
-					open={isModalOpen}
+					open={isDialogOpen}
 					handleSave={handleDashboardSave}
-					handleClose={() => setIsModalOpen(false)}
+					handleClose={() => setIsDialogOpen(false)}
 				/>
 			}
 			{dashboards.length > 0
 				? <DashboardList dashboards={dashboards} dashboardActions={dashboardActions} />
 				: <Alert severity='info'>Dashboards Not Found</Alert>
 			}
-			<FloatingBtn color='primary' tooltipTitle='Create New Dashboard' onClick={handleAddIconClick}>
+			<FloatingBtn color='primary' tooltipTitle='Add Dashboard' onClick={handleAddIconClick}>
 				<AddIcon />
 			</FloatingBtn>
 		</>

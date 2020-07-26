@@ -18,7 +18,11 @@ const createColumn = (id, title) =>
 
 const loadDashboard = (slug) => fetchApi.GET(`/dashboards?slug=${slug}&_embed=columns`);
 
-const saveColumn = column => fetchApi.PUT(`/columns/${column.id}`, column);
+const saveColumn = column => {
+	const id = column.id;
+	const method = id ? reqType.PUT : reqType.POST;
+	return fetchApi[method](`/columns/${id || ''}`, column);
+};
 
 const saveColumnBulk = columns => {
 	const promises = columns.map(c => fetchApi.PUT(`/columns/${c.id}`, c));
