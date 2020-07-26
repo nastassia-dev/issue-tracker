@@ -67,6 +67,16 @@ export default function dashboardReducer(state = initialState.dashboard, action)
 						.map(c => (c.id === action.column.id) ? action.column : c),
 				},
 			};
+		case types.DELETE_COLUMN_OPTIMISTIC:
+			const columnOrder = state.dashboard.columnOrder.filter(id => id !== action.id);
+			return {
+				...state,
+				dashboard: {
+					...state.dashboard,
+					columnOrder,
+					columns: state.dashboard.columns.filter(c => c.id !== action.id),
+				}
+			};
 		case types.SAVE_TASK_SUCCESS:
 			// TODO split UPDATE(SAVE) & CREATE
 			const columns = action.column

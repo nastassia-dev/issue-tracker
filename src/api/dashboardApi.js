@@ -23,6 +23,7 @@ const saveColumn = column => {
 	const method = id ? reqType.PUT : reqType.POST;
 	return fetchApi[method](`/columns/${id || ''}`, column);
 };
+const deleteColumn = id => fetchApi.DELETE(`/columns/${id}`);
 
 const saveColumnBulk = columns => {
 	const promises = columns.map(c => fetchApi.PUT(`/columns/${c.id}`, c));
@@ -56,6 +57,7 @@ export default {
 	deleteDashboard,
 	createColumn,
 	saveColumn,
+	deleteColumn,
 	saveColumnBulk,
 	saveTask,
 }

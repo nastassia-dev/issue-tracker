@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -17,13 +17,18 @@ const useStyles = makeStyles(() => ({
 
 const EditableTitle = ({
 	                       title: titleProp,
+	                       isEditingProp = false,
 	                       isTitleValid = () => true,
 	                       onTitleSave = () => null,
+	                       onEditCancel = () => null,
 	                       ...props
                        }) => {
 	const classes = useStyles();
 	const [title, setTitle] = useState(titleProp);
-	const [isEditing, setIsEditing] = useState(false);
+	const [isEditing, setIsEditing] = useState(isEditingProp);
+	useEffect(() => {
+		setIsEditing(isEditingProp);
+	}, [isEditingProp]);
 
 	const handleChange = ({ target: { value } }) => {
 		if (isTitleValid(value)) {
@@ -36,6 +41,7 @@ const EditableTitle = ({
 	};
 	const handleOnBlur = () => {
 		setIsEditing(false);
+		onEditCancel();
 		if (titleProp === title) return;
 		onTitleSave(title);
 	};

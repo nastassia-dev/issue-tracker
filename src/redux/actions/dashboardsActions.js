@@ -62,6 +62,14 @@ export const saveColumnError = error => ({
 	type: types.SAVE_COLUMN_ERROR,
 	error,
 });
+export const deleteColumnOptimistic = id => ({
+	type: types.DELETE_COLUMN_OPTIMISTIC,
+	id,
+});
+export const deleteColumnError = error => ({
+	type: types.DELETE_COLUMN_ERROR,
+	error,
+});
 
 export const saveTaskStart = () => ({ type: types.SAVE_TASK_START });
 export const saveTaskSuccess = ({ task, column }) => ({
@@ -134,6 +142,15 @@ export function saveColumn(column) {
 			.then(savedColumn => dispatch(saveColumnSuccess(savedColumn)))
 			.catch(e => dispatch(saveColumnError(e)));
 	};
+}
+export function deleteColumn(dashboard, columnId) {
+	return function (dispatch) {
+		dispatch(deleteColumnOptimistic(columnId));
+		const columnOrder = dashboard.columnOrder.filter(id => id !== columnId);
+		return dashboardApi.saveDashboard({...dashboard, columnOrder})
+			.then(() => dashboardApi.deleteColumn(columnId))
+			.catch(e => dispatch(deleteColumnError(e)));
+	}
 }
 export function saveColumnBulk(columns) {
 	return function (dispatch) {

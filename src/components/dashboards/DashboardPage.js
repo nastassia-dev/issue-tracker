@@ -33,7 +33,7 @@ const DashboardPage = ({
 		setIsDialogOpen(false);
 		saveColumn({ ...column, dashboardId: dashboard.id });
 	};
-	console.log('Dash', dashboard);
+
 	return (
 		loadError
 			?

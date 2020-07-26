@@ -7,16 +7,20 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const ITEM_HEIGHT = 30;
 const useStyles = makeStyles({
-	root: {
+	root: styles => ({
 		position: 'absolute',
 		top: 10,
 		right: 10,
-	},
+		...styles.root,
+	}),
+	menuItem: styles => ({
+		...styles.menuItem,
+	}),
 });
-
-const MoreVertMenu = ({ options, handleAction }) => {
+const defaultStyleProp = { root: {}, menuItem: {}};
+const MoreVertMenu = ({ options, styles = defaultStyleProp, handleAction }) => {
 	const [anchorEl, setAnchorEl] = React.useState(null);
-	const classes = useStyles();
+	const classes = useStyles(styles);
 	const open = Boolean(anchorEl);
 
 	const handleOpen = e => setAnchorEl(e.currentTarget);
@@ -28,7 +32,7 @@ const MoreVertMenu = ({ options, handleAction }) => {
 
 	return (
 		<div className={classes.root}>
-			<IconButton onClick={handleOpen}>
+			<IconButton onClick={handleOpen} size={styles.iconSize || 'medium'}>
 				<MoreVertIcon />
 			</IconButton>
 			<Menu
@@ -48,6 +52,7 @@ const MoreVertMenu = ({ options, handleAction }) => {
 						data-action-name={option}
 						key={option}
 						onClick={handleClick}
+						className={classes.menuItem}
 					>
 						{option}
 					</MenuItem>
