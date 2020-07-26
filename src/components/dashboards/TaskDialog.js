@@ -36,14 +36,16 @@ const TaskDialog = ({ task = {}, isOpen, setIsOpen, saveTask }) => {
 					autoFocus
 					required
 					error={hasError}
-					margin='dense'
+					variant='outlined'
 					label='Description'
 					type='text'
+					margin='normal'
 					fullWidth
 					multiline
-					rows={1}
+					rows={3}
 					rowsMax={6}
 					onChange={handleContentChange}
+					InputLabelProps={{shrink: true}}
 					value={content}
 				/>
 			</DialogContent>

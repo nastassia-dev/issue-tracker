@@ -72,7 +72,7 @@ server.get('/dashboards', (req, res, next) => {
 	}
 });
 const defaultColumnNames = ['ToDo', 'InProgress', 'Done'];
-const defaultTask = { content: 'Create more tasks' };
+const defaultTask = { content: 'Add more tasks' };
 const generateUuid = () => crypto.randomBytes(16).toString('hex');
 server.post('/dashboards/columns', (req, res) => {
 	const dashboardId = generateUuid();
