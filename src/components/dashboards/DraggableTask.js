@@ -19,11 +19,21 @@ const useStyles = makeStyles(() => ({
 
 const Task = ({ task, innerRef, saveTask, ...props}) => {
 	const classes = useStyles();
+	const [showEdit, setShowEdit] = useState(false);
 	const [isOpen, setIsOpen] = useState(false);
-	const handleEditClicked = () => setIsOpen(true);
+	const handleEditClicked = () => {
+		setShowEdit(false);
+		setIsOpen(true);
+	};
 
 	return (
-		<div className={classes.task} ref={innerRef} {...props}>
+		<div
+			onMouseEnter={() => setShowEdit(true)}
+			onMouseLeave={() => setShowEdit(false)}
+			className={classes.task}
+			ref={innerRef}
+			{...props}
+		>
 			{
 				isOpen &&
 				<ManageTaskDialog
@@ -34,13 +44,16 @@ const Task = ({ task, innerRef, saveTask, ...props}) => {
 				/>
 			}
 			<div>{task.content}</div>
-			<IconButton
-				style={{position:'absolute',right:8,top:8}}
-				size='small'
-				onClick={handleEditClicked}
-			>
-				<EditIcon fontSize='small' />
-			</IconButton>
+			{
+				showEdit &&
+				<IconButton
+					style={{position: 'absolute', right: 8, top: 8}}
+					size='small'
+					onClick={handleEditClicked}
+				>
+					<EditIcon fontSize='small'/>
+				</IconButton>
+			}
 		</div>
 	);
 };
@@ -62,7 +75,6 @@ const DraggableTask = ({ task, index, saveTask }) => {
 			)}
 		</Draggable>
 	)
-
 };
 
 export default DraggableTask;
