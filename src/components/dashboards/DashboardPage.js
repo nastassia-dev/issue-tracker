@@ -11,6 +11,7 @@ const DashboardPage = ({ location, loadDashboard, saveColumnBulk, resetDashboard
 	const { dashboard, loadError } = dashboardState;
 
 	useEffect(() => {
+		// TODO avoid extra calls if dashboard data is available
 		loadDashboard(slug);
 		return resetDashboard;
 	}, [slug]);

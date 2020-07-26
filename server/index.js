@@ -1,9 +1,8 @@
 const jsonServer = require("json-server");
 const server = jsonServer.create();
 const path = require("path");
+const crypto = require("crypto");
 const router = jsonServer.router(path.join(__dirname, "db.json"));
-// const db = require(path.join(__dirname, "db.json"));
-
 const middlewares = jsonServer.defaults();
 
 server.use(middlewares);
@@ -71,6 +70,49 @@ server.get('/dashboards', (req, res, next) => {
 	} else {
 		next();
 	}
+});
+const defaultColumnNames = ['ToDo', 'InProgress', 'Done'];
+const defaultTask = { content: 'Create more tasks' };
+const generateUuid = () => crypto.randomBytes(16).toString('hex');
+server.post('/dashboards/columns', (req, res) => {
+	const dashboardId = generateUuid();
+	const taskId = generateUuid();
+	const createdAt = getTimeStamp();
+	const db = router.db;
+	const dashboardsCollection = db.get('dashboards');
+	const columnsCollection = db.get('columns');
+	const tasksCollection = db.get('tasks');
+	const columnOrder = [];
+	const columns = [];
+	const task = { ...defaultTask, id: taskId };
+	tasksCollection.push(task).write();
+	defaultColumnNames.forEach((title, i) => {
+		const taskIds = i === 0 ? [taskId] : [];
+		const columnId = generateUuid();
+		const column = {
+			id: columnId,
+			title,
+			taskIds,
+			dashboardId,
+			createdAt,
+		};
+		columnOrder.push(columnId);
+		columns.push(column);
+		columnsCollection.push(column).write();
+	});
+	const dashboard = {
+		id: dashboardId,
+		title: req.body.title,
+		description: req.body.description,
+		createdAt,
+		status: 'active',
+		columnOrder,
+		slug: slugify(req.body.title)
+	};
+	dashboardsCollection.push(dashboard).write();
+
+	res.status(201);
+	res.send({ ...dashboard, columns, tasks: [task] });
 });
 
 server.use(router);

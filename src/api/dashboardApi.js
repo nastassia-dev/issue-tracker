@@ -1,95 +1,48 @@
-import { handleResponse, handleError } from './utils';
+import fetchApi, { reqType } from './fetchApi';
 
-const loadDashboards = () => {
-	return fetch(`/dashboards`)
-		.then(handleResponse)
-		.then(dashboards => dashboards.sort((a, b) => (a.updatedAt < b.updatedAt) ? 1 : -1))
-		.catch(handleError);
-};
+const loadDashboards = () =>
+	fetchApi.GET('/dashboards')
+		.then(dashboards => dashboards.sort((a, b) => (a.updatedAt < b.updatedAt) ? 1 : -1));
 
 const saveDashboard = dashboard => {
-	return fetch(`/dashboards/${dashboard.id || ''}`, {
-		method: dashboard.id ? 'PUT' : 'POST',
-		headers: { 'content-type': 'application/json' },
-		body: JSON.stringify(dashboard)
-	})
-		.then(handleResponse)
-		.catch(handleError);
+	const id = dashboard.id;
+	const url = id ? `/dashboards/${id}` : '/dashboards/columns';
+	const method = id ? reqType.PUT : reqType.POST;
+	return fetchApi[method](url, dashboard);
 };
 
-const deleteDashboard = id => {
-	return fetch(`/dashboards/${id}`, { method: 'DELETE' })
-		.then(handleResponse)
-		.catch(handleError);
-};
+const deleteDashboard = id => fetchApi.DELETE(`/dashboards/${id}`);
 
-const createColumn = (id, title, order) => {
-	return fetch(`/dashboards/${id}/columns`, {
-		method: 'POST',
-		headers: { 'content-type': 'application/json' },
-		body: JSON.stringify({ title, order })
-	})
-		.then(handleResponse)
-		.catch(handleError);
-};
+const createColumn = (id, title) =>
+	fetchApi.POST(`/dashboards/${id}/columns`, { title });
 
-const loadDashboard = (slug) => {
-	return fetch(`/dashboards?slug=${slug}&_embed=columns`)
-		.then(handleResponse)
-		.catch(handleError);
-};
+const loadDashboard = (slug) => fetchApi.GET(`/dashboards?slug=${slug}&_embed=columns`);
 
-const saveColumn = column => {
-	return fetch(`/columns/${column.id}`, {
-		method: 'PUT',
-		headers: { 'content-type': 'application/json' },
-		body: JSON.stringify(column)
-	})
-		.then(handleResponse)
-		.catch(handleError);
-};
+const saveColumn = column => fetchApi.PUT(`/columns/${column.id}`, column);
+
 const saveColumnBulk = columns => {
-	const promises = columns.map(c => {
-		 return fetch(`/columns/${c.id}`, {
-			 method: 'PUT',
-			 headers: { 'content-type': 'application/json' },
-			 body: JSON.stringify(c)
-		 })
-			 .then(handleResponse);
-	});
-	return Promise
-		.all(promises)
-		.catch(handleError);
+	const promises = columns.map(c => fetchApi.PUT(`/columns/${c.id}`, c));
+	return Promise.all(promises);
 };
 
 const saveTask = (column, task) => {
-	const url = task.id
-		? `/tasks/${task.id}`
+	const taskId = task.id;
+	const url = taskId
+		? `/tasks/${taskId}`
 		: `/columns/${column.id}/tasks`;
-	return fetch(url, {
-			method: task.id ? 'PUT' : 'POST',
-			headers: {'content-type': 'application/json'},
-			body: JSON.stringify(task),
-		})
-		.then(handleResponse)
+	const method = taskId ? reqType.PUT : reqType.POST;
+	return fetchApi[method](url, task)
 		.then(savedTask => {
-			if (task.id) return { task: savedTask };
+			if (taskId) return { task: savedTask };
 
-			const taskId = savedTask.id;
-			const taskIds = [...column.taskIds, taskId];
-
-			return fetch(`/columns/${column.id}`, {
-				method: 'PUT',
-				headers: {'content-type': 'application/json'},
-				body: JSON.stringify({...column, taskIds }),
-			})
-				.then(handleResponse)
+			const savedTaskId = savedTask.id;
+			const taskIds = [...column.taskIds, savedTaskId];
+			return fetchApi.PUT(`/columns/${column.id}`, {...column, taskIds })
 				.then(savedColumn => ({
 					task: savedTask,
 					column: savedColumn
-				}))
-		})
-		.catch(handleError);
+				}));
+		});
 };
 
 export default {

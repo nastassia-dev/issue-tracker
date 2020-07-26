@@ -91,16 +91,6 @@ export function saveDashboard(dashboard) {
 		return dashboardApi
 			.saveDashboard(dashboard)
 			.then(savedDashboard => {
-				if (dashboardId) return savedDashboard;
-				// TODO handle default columns server side when moved to real server
-				return Promise.all([
-					dashboardApi.createColumn(savedDashboard.id, 'TODO', 1),
-					dashboardApi.createColumn(savedDashboard.id, 'In Progress', 2),
-					dashboardApi.createColumn(savedDashboard.id, 'Done', 3)
-				])
-					.then(() => savedDashboard);
-			})
-			.then(savedDashboard => {
 				dashboardId
 					? dispatch(updateDashboardSuccess(savedDashboard))
 					: dispatch(saveDashboardSuccess(savedDashboard));
