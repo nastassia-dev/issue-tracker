@@ -1,5 +1,6 @@
 import * as types from '../actions/types';
 import initialState from './initialState';
+import { sortAndSplitDashboards } from '../../api/utils';
 
 export default function dashboardsReducer(state = initialState.dashboards, action) {
 	switch(action.type) {
@@ -12,18 +13,26 @@ export default function dashboardsReducer(state = initialState.dashboards, actio
 			return {
 				...state,
 				isLoading: false,
-				dashboards: action.dashboards,
+				active: action.dashboards.active,
+				archived: action.dashboards.archived,
+				total: action.dashboards.total,
 			};
 		case types.UPDATE_DASHBOARD_SUCCESS:
+			const dashboards = [...state.active, ...state.archived]
+				.map(d => d.id === action.dashboard.id ? action.dashboard : d);
+			const data = sortAndSplitDashboards(dashboards);
 			return {
 				...state,
 				isSaving: false,
-				dashboards: state.dashboards.map(d => d.id === action.dashboard.id ? action.dashboard : d),
+				archived: data.archived,
+				active: data.active,
 			};
 		case types.DELETE_DASHBOARD_OPTIMISTIC:
 			return {
 				...state,
-				dashboards: state.dashboards.filter(d => d.id !== action.id),
+				total: state.total - 1,
+				active: state.active.filter(d => d.id !== action.id),
+				archived: state.archived.filter(d => d.id !== action.id),
 			};
 		default:
 			return state;

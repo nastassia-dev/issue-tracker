@@ -10,3 +10,14 @@ export const handleResponse = res => {
 export const handleError = err => {
 	throw err;
 };
+
+export const sortAndSplitDashboards = dashboards => {
+	const _dashboards = [...dashboards];
+	_dashboards.sort(
+		(a, b) => ((a.updatedAt || a.createdAt) < (b.updatedAt || b.createdAt)) ? 1 : -1);
+	const data = _dashboards.reduce((acc, d) => {
+		acc[d.status].push(d);
+		return acc;
+	}, { active: [], archived: [] });
+	return data;
+};

@@ -1,8 +1,14 @@
 import fetchApi, { reqType } from './fetchApi';
+import { sortAndSplitDashboards } from './utils';
 
 const loadDashboards = () =>
 	fetchApi.GET('/dashboards')
-		.then(dashboards => dashboards.sort((a, b) => (a.updatedAt < b.updatedAt) ? 1 : -1));
+		.then(dashboards => {
+			const total = dashboards.length;
+			const data = sortAndSplitDashboards(dashboards);
+			data.total = total;
+			return data;
+		});
 
 const saveDashboard = dashboard => {
 	const id = dashboard.id;

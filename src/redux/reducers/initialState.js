@@ -2,7 +2,9 @@ export default {
 	tasks: [],
 	dashboards: {
 		isLoading: false,
-		dashboards: [],
+		total: 0,
+		active: [],
+		archived: [],
 	},
 	dashboard: {
 		isSaving: false,
