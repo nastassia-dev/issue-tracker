@@ -22,7 +22,7 @@ const useStyles = makeStyles(() => ({
 const EDIT = 'Edit';
 const DELETE = 'Delete';
 const actionOpts = [EDIT, DELETE];
-const menuStyles = { root: { right: 5 }, menuItem: { fontSize: 14 }, iconSize: 'small' };
+const menuStyles = { root: { top: 9, right: 5 }, menuItem: { fontSize: 14 }, iconSize: 'small' };
 
 const DroppableColumn = ({ column, ownTasks: tasks, dashboard, saveColumn, saveTask, deleteColumn }) => {
 	const [showTitleEdit, setShowTitleEdit] = useState(false);
@@ -44,8 +44,9 @@ const DroppableColumn = ({ column, ownTasks: tasks, dashboard, saveColumn, saveT
 		<Paper className={classes.column}>
 			<EditableTitle
 				title={column.title}
-				isEditingProp={showTitleEdit}
+				isEditing={showTitleEdit}
 				isTitleValid={isTitleValid}
+				onTitleEdit={() => setShowTitleEdit(true)}
 				onTitleSave={onTitleSave}
 				onEditCancel={() => setShowTitleEdit(false)}
 			/>

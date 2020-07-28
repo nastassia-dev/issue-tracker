@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 
-const baseStyle = {height: '34px', width: '100%', cursor: 'pointer'};
+const noop = () => null;
+const baseStyle = {height: '34px', width: '100%', cursor: 'pointer', fontWeight: 'bold'};
 const useStyles = makeStyles(() => ({
 	root: {
 		...baseStyle,
@@ -11,38 +12,29 @@ const useStyles = makeStyles(() => ({
 			padding: '5px 10px',
 			textAlign: 'center',
 			fontSize: '14px',
+			fontWeight: 'bold',
 		},
 	},
 }));
 
 const EditableTitle = ({
 	                       title: titleProp,
-	                       isEditingProp = false,
+	                       isEditing = false,
 	                       isTitleValid = () => true,
-	                       onTitleSave = () => null,
-	                       onEditCancel = () => null,
+	                       onTitleEdit = noop,
+	                       onTitleSave = noop,
+	                       onEditCancel = noop,
 	                       ...props
                        }) => {
 	const classes = useStyles();
 	const [title, setTitle] = useState(titleProp);
-	const [isEditing, setIsEditing] = useState(isEditingProp);
-	useEffect(() => {
-		setIsEditing(isEditingProp);
-	}, [isEditingProp]);
-
 	const handleChange = ({ target: { value } }) => {
 		if (isTitleValid(value)) {
 			setTitle(value);
 		}
 	};
-	const handleClick = (e) => {
-		e.preventDefault();
-		setIsEditing(true);
-	};
 	const handleOnBlur = () => {
-		setIsEditing(false);
-		onEditCancel();
-		if (titleProp === title) return;
+		if (titleProp === title) return onEditCancel();
 		onTitleSave(title);
 	};
 
@@ -63,7 +55,7 @@ const EditableTitle = ({
 			:
 			<div
 				style={{...baseStyle, paddingTop: '3px', textAlign: 'center'}}
-				onClick={handleClick}
+				onClick={onTitleEdit}
 			>
 				{title}
 			</div>
