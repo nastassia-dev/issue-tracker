@@ -6,7 +6,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import TextField from '@material-ui/core/TextField';
 
-const ManageTaskDialog = ({ task = {}, isOpen, setIsOpen, saveTask }) => {
+const ManageTaskDialog = ({ task = {}, isOpen, setIsOpen, saveTask, deleteTask }) => {
 	const [content, setContent] = useState(task.content);
 	const [hasError, setHasError] = useState(false);
 
@@ -16,7 +16,8 @@ const ManageTaskDialog = ({ task = {}, isOpen, setIsOpen, saveTask }) => {
 		if (task.content === content) return;
 		saveTask({ ...task, content });
 	};
-	const handleClose = () => {setIsOpen(false)};
+	const handleClose = () => setIsOpen(false);
+	const handleDelete = () => deleteTask(task.id);
 	const handleContentChange = ({ target: { value } }) => {
 		setHasError(false);
 		setContent(value);
@@ -53,6 +54,12 @@ const ManageTaskDialog = ({ task = {}, isOpen, setIsOpen, saveTask }) => {
 				<Button color='primary' onClick={handleClose}>
 					Cancel
 				</Button>
+				{
+					deleteTask &&
+					<Button color='primary' onClick={handleDelete}>
+						Delete
+					</Button>
+				}
 				<Button color='primary' onClick={handleSaveTask}>
 					Save
 				</Button>

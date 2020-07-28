@@ -24,7 +24,7 @@ const DELETE = 'Delete';
 const actionOpts = [EDIT, DELETE];
 const menuStyles = { root: { top: 9, right: 5 }, menuItem: { fontSize: 14 }, iconSize: 'small' };
 
-const DroppableColumn = ({ column, ownTasks: tasks, dashboard, saveColumn, saveTask, deleteColumn }) => {
+const DroppableColumn = ({ column, ownTasks: tasks, dashboard, saveColumn, saveTask, deleteTask, deleteColumn }) => {
 	const [showTitleEdit, setShowTitleEdit] = useState(false);
 	const classes = useStyles();
 	const isTitleValid = value => true;
@@ -32,9 +32,8 @@ const DroppableColumn = ({ column, ownTasks: tasks, dashboard, saveColumn, saveT
 		setShowTitleEdit(false);
 		saveColumn({...column, title: value});
 	};
-	const handleTaskSave = task => {
-		saveTask(column, task);
-	};
+	const handleTaskSave = task => saveTask(column, task);
+	const handleTaskDelete = id => deleteTask(column, id);
 	const handleAction = name => {
 		if (name === EDIT) return setShowTitleEdit(true);
 		// TODO ask to confirm delete
@@ -65,13 +64,14 @@ const DroppableColumn = ({ column, ownTasks: tasks, dashboard, saveColumn, saveT
 								task={task}
 								index={index}
 								saveTask={handleTaskSave}
+								deleteTask={handleTaskDelete}
 							/>
 						))}
 						{provided.placeholder}
 					</div>
 				)}
 			</Droppable>
-			<ManageTaskContainer saveTask={handleTaskSave}/>
+			<ManageTaskContainer saveTask={handleTaskSave} />
 		</Paper>
 	)
 
@@ -84,6 +84,7 @@ const mapDispatchToProps = (dispatch) => ({
 	saveColumn: (column) => dispatch(dashboardsActions.saveColumn(column)),
 	deleteColumn: (dashboard, columnId) => dispatch(dashboardsActions.deleteColumn(dashboard, columnId)),
 	saveTask: (column, task) => dispatch(dashboardsActions.saveTask(column, task)),
+	deleteTask: (column, id) => dispatch(dashboardsActions.deleteTask(column, id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DroppableColumn);

@@ -4,7 +4,7 @@ import AddIcon from '@material-ui/icons/Add';
 import Tooltip from '@material-ui/core/Tooltip';
 import ManageTaskDialog from './ManageTaskDialog';
 
-const ManageTaskContainer = ({ saveTask }) => {
+const ManageTaskContainer = ({ saveTask, deleteTask }) => {
 	const [isOpen, setIsOpen] = useState(false);
 
 	return (
@@ -14,6 +14,7 @@ const ManageTaskContainer = ({ saveTask }) => {
 					isOpen={isOpen}
 					setIsOpen={setIsOpen}
 					saveTask={saveTask}
+					deleteTask={deleteTask}
 				/>
 			:
 			<Tooltip title='Create Task'>

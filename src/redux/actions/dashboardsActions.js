@@ -81,6 +81,15 @@ export const saveTaskError = error => ({
 	type: types.SAVE_TASK_ERROR,
 	error,
 });
+export const deleteTaskOptimistic = (column, id) => ({
+	type: types.DELETE_TASK_OPTIMISTIC,
+	column,
+	id,
+});
+export const deleteTaskError = error => ({
+	type: types.DELETE_TASK_ERROR,
+	error,
+});
 
 export function loadDashboards() {
 	return function (dispatch) {
@@ -169,4 +178,14 @@ export function saveTask(column, task) {
 			.then(res => dispatch(saveTaskSuccess(res)))
 			.catch(e => dispatch(saveTaskError(e)));
 	};
+}
+export function deleteTask(column, id) {
+	return function (dispatch) {
+		const taskIds = column.taskIds.filter(t => t !== id);
+		const newColumn = { ...column, taskIds };
+		dispatch(deleteTaskOptimistic(newColumn, id));
+		return dashboardApi.saveColumn(newColumn)
+			.then(() => dashboardApi.deleteTask(id))
+			.catch(e => dispatch(deleteTaskError(e)));
+	}
 }

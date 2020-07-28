@@ -95,6 +95,15 @@ export default function dashboardReducer(state = initialState.dashboard, action)
 					tasks,
 				}
 			};
+		case types.DELETE_TASK_OPTIMISTIC:
+			return {
+				...state,
+				dashboard: {
+					...state.dashboard,
+					columns: state.dashboard.columns.map(c => (c.id === action.column.id) ? action.column : c),
+					tasks: state.dashboard.tasks.filter(t => t !== action.id),
+				}
+			};
 		default:
 			return state;
 	}

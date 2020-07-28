@@ -17,7 +17,7 @@ const useStyles = makeStyles(() => ({
 	},
 }));
 
-const Task = ({ task, innerRef, saveTask, ...props}) => {
+const Task = ({ task, innerRef, saveTask, deleteTask, ...props}) => {
 	const classes = useStyles();
 	const [showEdit, setShowEdit] = useState(false);
 	const [isOpen, setIsOpen] = useState(false);
@@ -40,6 +40,7 @@ const Task = ({ task, innerRef, saveTask, ...props}) => {
 					isOpen={isOpen}
 					setIsOpen={setIsOpen}
 					saveTask={saveTask}
+					deleteTask={deleteTask}
 					task={task}
 				/>
 			}
@@ -58,7 +59,7 @@ const Task = ({ task, innerRef, saveTask, ...props}) => {
 	);
 };
 
-const DraggableTask = ({ task, index, saveTask }) => {
+const DraggableTask = ({ task, index, saveTask, deleteTask }) => {
 	return (
 		<Draggable
 			draggableId={task.id}
@@ -70,6 +71,7 @@ const DraggableTask = ({ task, index, saveTask }) => {
 					{...provided.draggableProps}
 					{...provided.dragHandleProps}
 					saveTask={saveTask}
+					deleteTask={deleteTask}
 					task={task}
 				/>
 			)}

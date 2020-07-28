@@ -48,13 +48,14 @@ const saveTask = (column, task) => {
 
 			const savedTaskId = savedTask.id;
 			const taskIds = [...column.taskIds, savedTaskId];
-			return fetchApi.PUT(`/columns/${column.id}`, {...column, taskIds })
+			return fetchApi.PUT(`/columns/${column.id}`, { ...column, taskIds })
 				.then(savedColumn => ({
 					task: savedTask,
 					column: savedColumn
 				}));
 		});
 };
+const deleteTask = id => fetchApi.DELETE(`/tasks/${id}`);
 
 export default {
 	loadDashboards,
@@ -66,5 +67,6 @@ export default {
 	deleteColumn,
 	saveColumnBulk,
 	saveTask,
+	deleteTask,
 }
 
