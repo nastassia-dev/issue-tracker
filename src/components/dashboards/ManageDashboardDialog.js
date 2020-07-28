@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -18,9 +18,12 @@ const defaultDashboard = {
 	description: '',
 };
 
-const ManageDashboardDialog = ({ open, handleSave, handleClose }) => {
-	const [dashboard, setDashboard] = useState(defaultDashboard);
+const ManageDashboardDialog = ({ dashboard: dashboardProp, open, handleSave, handleClose }) => {
+	const [dashboard, setDashboard] = useState((dashboardProp || defaultDashboard));
 	const [errors, setErrors] = useState({});
+	useEffect(() => {
+		setDashboard((dashboardProp || defaultDashboard));
+	}, [dashboardProp]);
 
 	const handleChange = ({ target: { name, value } }) => {
 		setDashboard(prevState => ({

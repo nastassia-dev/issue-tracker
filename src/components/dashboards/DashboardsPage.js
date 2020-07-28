@@ -18,38 +18,57 @@ const DashboardsPage = ({
 	                        deleteDashboard
 }) => {
 	const [isDialogOpen, setIsDialogOpen] = useState(false);
+	const [dashboard, setDashboard] = useState(null);
 	useEffect(() => {
 		loadDashboards();
 	}, []);
 	const handleAddIconClick = () => setIsDialogOpen(true);
-	const handleDashboardSave = dashboard => {
+/*	const handleDashboardSave = dashboard => {
 		//TODO change to optimistic update
 		saveDashboard(dashboard)
 			.then(res => {
 				setIsDialogOpen(false);
-				history.push({
-					pathname: `/dashboard/${res.slug}`,
-					state: { dashboard: res },
-				});
+				setDashboard(null);
+				if (!dashboard.id) {
+					history.push({
+						pathname: `/dashboard/${res.slug}`,
+						state: {dashboard: res},
+					});
+				}
 			});
 
-	};
+	};*/
 	const handleViewDashboard = dashboard => {
 		history.push({
 			pathname: `/dashboard/${dashboard.slug}`,
 			state: { dashboard }
 		})
 	};
-
-	const handleArchiveDashboard = dashboard => {
-		saveDashboard({ ...dashboard, status: 'archived' })
-			.then(() => resetDashboard());
+	const handleEditDashboard = dashboard => {
+		setDashboard(dashboard);
+		setIsDialogOpen(true);
+	};
+	const handleSaveDashboard = dashboard => {
+		//TODO change to optimistic update
+		saveDashboard(dashboard)
+			.then(res => {
+				setIsDialogOpen(false);
+				setDashboard(null);
+				if (!dashboard.id) {
+					return history.push({
+						pathname: `/dashboard/${res.slug}`,
+						state: {dashboard: res},
+					});
+				}
+				resetDashboard();
+			});
 	};
 	const handleDeleteDashboard = dashboard => {
 		// TODO ask to confirm delete
+		setDashboard(null);
 		deleteDashboard(dashboard);
 	};
-	const dashboardActions = { handleViewDashboard, handleArchiveDashboard, handleDeleteDashboard };
+	const dashboardActions = { handleViewDashboard, handleEditDashboard, handleSaveDashboard, handleDeleteDashboard };
 
 	return (
 		<>
@@ -57,8 +76,9 @@ const DashboardsPage = ({
 				isDialogOpen
 				&&
 				<ManageDashboardDialog
+					dashboard={dashboard}
 					open={isDialogOpen}
-					handleSave={handleDashboardSave}
+					handleSave={handleSaveDashboard}
 					handleClose={() => setIsDialogOpen(false)}
 				/>
 			}

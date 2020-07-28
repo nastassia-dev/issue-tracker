@@ -6,9 +6,11 @@ import Typography from '@material-ui/core/Typography';
 import MoreVertMenu from '../common/MoreVertMenu';
 
 const VIEW = 'View';
+const EDIT = 'Edit';
 const ARCHIVE = 'Archive';
+const UNARCHIVE = 'Unarchive';
 const DELETE = 'Delete';
-const actionOpts = [VIEW, ARCHIVE, DELETE];
+
 const useStyles = makeStyles({
 	root: {
 		position: 'relative',
@@ -36,9 +38,12 @@ const DashboardCard = ({ dashboard, actions }) => {
 
 	const handleAction = name => {
 		if (name === VIEW) return actions.handleViewDashboard(dashboard);
-		if (name === ARCHIVE) return actions.handleArchiveDashboard(dashboard);
+		if (name === EDIT) return actions.handleEditDashboard(dashboard);
+		if (name === ARCHIVE) return actions.handleSaveDashboard({ ...dashboard, status: 'archived' });
+		if (name === UNARCHIVE) return actions.handleSaveDashboard({ ...dashboard, status: 'active' });
 		if (name === DELETE) return actions.handleDeleteDashboard(dashboard);
 	};
+	const actionOpts = [VIEW, EDIT, (dashboard.status === 'active' ? ARCHIVE : UNARCHIVE), DELETE];
 	return (
 		<Card className={classes.root}>
 			<CardContent>
