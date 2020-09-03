@@ -9,9 +9,10 @@ const DashboardDragDropContainer = ({ dashboard, handleColumnSave }) => {
 
 	const onDragStart = () => {};
 	const onDragUpdate = () => {};
-	const onDragEnd = result => {
+	const onDragEnd = (result) => {
 		const { destination, source, draggableId } = result;
 		if (!destination) return;
+		// eslint-disable-next-line max-len
 		if (destination.droppableId === source.droppableId && destination.index === source.index) return;
 
 		const startColumn = columns.find(c => c.id === source.droppableId);
@@ -43,12 +44,9 @@ const DashboardDragDropContainer = ({ dashboard, handleColumnSave }) => {
 			onDragEnd={onDragEnd}
 		>
 			<Grid container justify='flex-start' spacing={1}>
-				{columnOrder.map((columnId, index) => {
-					/*const column = all.columns.find(c => c.id === columnId);
-					const ownTasks = column.taskIds.map(t => all.tasks.find(tt => tt.id === t));*/
+				{columnOrder.map((columnId) => {
 					const column = columns.find(c => c.id === columnId);
 					const ownTasks = column.taskIds.map(t => tasks.find(tt => tt.id === t));
-
 					return (
 						<Grid item key={columnId}>
 							<DroppableColumn
@@ -56,11 +54,11 @@ const DashboardDragDropContainer = ({ dashboard, handleColumnSave }) => {
 								ownTasks={ownTasks}
 							/>
 						</Grid>
-					)
+					);
 				})}
 			</Grid>
 		</DragDropContext>
-	)
+	);
 };
 
 export default DashboardDragDropContainer;

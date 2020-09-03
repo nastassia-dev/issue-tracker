@@ -11,7 +11,7 @@ const fieldProps = {
 	margin: 'normal',
 	variant: 'outlined',
 	required: true,
-	InputLabelProps: {shrink: true},
+	InputLabelProps: { shrink: true },
 };
 const defaultDashboard = {
 	title: '',
@@ -35,15 +35,15 @@ const ManageDashboardDialog = ({ dashboard: dashboardProp, open, handleSave, han
 		setErrors(prevState => ({
 			...prevState,
 			[name]: false,
-		}))
+		}));
 	};
 	const isFormValid = () => {
 		const { title, description } = dashboard;
-		const errors = {};
-		if (!title) errors.title = true;
-		if (!description) errors.description = true;
-		setErrors(errors);
-		return Object.keys(errors).length === 0;
+		const err = {};
+		if (!title) err.title = true;
+		if (!description) err.description = true;
+		setErrors(err);
+		return Object.keys(err).length === 0;
 	};
 	const handleSaveConfirm = () => {
 		if (!isFormValid()) return;
@@ -52,7 +52,7 @@ const ManageDashboardDialog = ({ dashboard: dashboardProp, open, handleSave, han
 
 	return (
 		<Dialog fullWidth open={open} onClose={handleClose}>
-			<DialogTitle style={{paddingBottom: 0}}>
+			<DialogTitle style={{ paddingBottom: 0 }}>
 				Add Dashboard
 			</DialogTitle>
 			<DialogContent>
@@ -82,12 +82,12 @@ const ManageDashboardDialog = ({ dashboard: dashboardProp, open, handleSave, han
 				<Button color='primary' onClick={handleClose}>
 					Cancel
 				</Button>
-				<Button color='primary' onClick={handleSaveConfirm} >
+				<Button color='primary' onClick={handleSaveConfirm}>
 					Save
 				</Button>
 			</DialogActions>
 		</Dialog>
-	)
+	);
 };
 
 export default ManageDashboardDialog;

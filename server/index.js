@@ -1,27 +1,31 @@
-const jsonServer = require("json-server");
+// eslint-disable-next-line import/no-extraneous-dependencies
+const jsonServer = require('json-server');
+const path = require('path');
+const crypto = require('crypto');
+
 const server = jsonServer.create();
-const path = require("path");
-const crypto = require("crypto");
-const router = jsonServer.router(path.join(__dirname, "db.json"));
+const router = jsonServer.router(path.join(__dirname, 'db.json'));
 const middlewares = jsonServer.defaults();
 
 server.use(middlewares);
 server.use(jsonServer.bodyParser);
 
-function slugify(value) {
+function slugify (value) {
 	return value
 		.toLowerCase()
-		.replace(/\s+/g, "-") // replaces any spaces with - (hyphen)
-		.replace(/[^\w\-]+/g, "") // removes any non-word, non-hyphen characters
-		.replace(/\-\-+/g, "-") // converts multiple hyphens to a single one
-		.replace(/^-+/, "")
-		.replace(/-+$/, "");
+		.replace(/\s+/g, '-') // replaces any spaces with - (hyphen)
+		// eslint-disable-next-line no-useless-escape
+		.replace(/[^\w\-]+/g, '') // removes any non-word, non-hyphen characters
+		// eslint-disable-next-line no-useless-escape
+		.replace(/\-\-+/g, '-') // converts multiple hyphens to a single one
+		.replace(/^-+/, '')
+		.replace(/-+$/, '');
 }
-function getTimeStamp() {
+function getTimeStamp () {
 	return new Date().toISOString().slice(0, 10);
 }
 // Simulate delay to test loading states
-server.use(function(req, res, next) {
+server.use((req, res, next) => {
 	setTimeout(next, 20);
 });
 server.use((req, res, next) => {
@@ -46,8 +50,8 @@ server.post('/dashboards/:id/columns', (req, res, next) => {
 	next();
 });
 server.get('/dashboards', (req, res, next) => {
-	const slug = req.query.slug;
-	const db = router.db;
+	const { slug } = req.query;
+	const { db } = router;
 	if (slug) {
 		const dashboardsCollection = db.get('dashboards');
 		const dashboard = dashboardsCollection.find({ slug }).value();
@@ -78,7 +82,7 @@ server.post('/dashboards/columns', (req, res) => {
 	const dashboardId = generateUuid();
 	const taskId = generateUuid();
 	const createdAt = getTimeStamp();
-	const db = router.db;
+	const { db } = router;
 	const dashboardsCollection = db.get('dashboards');
 	const columnsCollection = db.get('columns');
 	const tasksCollection = db.get('tasks');
@@ -116,8 +120,8 @@ server.post('/dashboards/columns', (req, res) => {
 });
 
 server.post('/columns', (req, res) => {
-	const dashboardId = req.body.dashboardId;
-	const db = router.db;
+	const { dashboardId } = req.body;
+	const { db } = router;
 	const dashboardsCollection = db.get('dashboards');
 	const columnsCollection = db.get('columns');
 	const createdAt = getTimeStamp();
@@ -133,7 +137,7 @@ server.post('/columns', (req, res) => {
 	const dashboard = dashboardsCollection.find({ id: dashboardId }).value();
 	const columnOrder = [...dashboard.columnOrder, columnId];
 	dashboardsCollection.find({ id: dashboardId })
-		.assign({ columnOrder: columnOrder}).write();
+		.assign({ columnOrder }).write();
 
 	res.status(201);
 	res.send({ dashboard, column });
@@ -141,6 +145,5 @@ server.post('/columns', (req, res) => {
 
 server.use(router);
 server.listen(3111, () => {
-	console.log('JSON Server is running')
+	console.log('JSON Server is running');
 });
-

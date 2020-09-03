@@ -57,6 +57,10 @@ const DroppableColumn = ({ column, ownTasks: tasks, dashboard, saveColumn, saveT
 					<div
 						ref={provided.innerRef}
 						{...provided.droppableProps}
+						style={{
+							backgroundColor: (snapshot.isDraggingOver ? 'grey': 'yellow'),
+							transition: 'background-color 0.2s ease',
+						}}
 					>
 						{(tasks || []).map((task, index) => (
 							<DraggableTask

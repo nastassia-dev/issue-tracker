@@ -76,10 +76,21 @@
     "start:server": "node server",
     "rca:start": "node scripts/start.js",
     "rca:build": "node scripts/build.js",
-    "rca:test": "node scripts/test.js"
+    "rca:test": "node scripts/test.js",
+    "lint": "eslint src"
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": ["airbnb-standard"],
+    "rules": {
+      "indent": "off",
+      "no-tabs": "off",
+      "comma-dangle": "off",
+      "object-curly-newline": "off",
+      "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+      "react/jsx-indent": "off",
+      "react/jsx-indent-props": "off",
+      "jsx-quotes": "off"
+    }
   },
   "browserslist": {
     "production": [
@@ -148,6 +159,7 @@
   },
   "devDependencies": {
     "eslint": "^7.4.0",
+    "eslint-config-airbnb-standard": "^3.1.0",
     "eslint-plugin-react": "^7.20.3",
     "faker": "^4.1.0",
     "json-server": "^0.16.1",

@@ -13,8 +13,9 @@ const ManageTaskDialog = ({ task = {}, isOpen, setIsOpen, saveTask, deleteTask }
 	const handleSaveTask = () => {
 		if (!content) return setHasError(true);
 		setIsOpen(false);
-		if (task.content === content) return;
+		if (task.content === content) return null;
 		saveTask({ ...task, content });
+		return null;
 	};
 	const handleClose = () => setIsOpen(false);
 	const handleDelete = () => deleteTask(task.id);
@@ -29,8 +30,8 @@ const ManageTaskDialog = ({ task = {}, isOpen, setIsOpen, saveTask, deleteTask }
 			open={isOpen}
 			onClose={handleClose}
 		>
-			<DialogTitle style={{paddingBottom: 0}}>
-				{task.content ? 'Edit Task': 'Add Task'}
+			<DialogTitle style={{ paddingBottom: 0 }}>
+				{task.content ? 'Edit Task' : 'Add Task'}
 			</DialogTitle>
 			<DialogContent>
 				<TextField
@@ -46,7 +47,7 @@ const ManageTaskDialog = ({ task = {}, isOpen, setIsOpen, saveTask, deleteTask }
 					rows={3}
 					rowsMax={6}
 					onChange={handleContentChange}
-					InputLabelProps={{shrink: true}}
+					InputLabelProps={{ shrink: true }}
 					value={content}
 				/>
 			</DialogContent>
@@ -55,11 +56,11 @@ const ManageTaskDialog = ({ task = {}, isOpen, setIsOpen, saveTask, deleteTask }
 					Cancel
 				</Button>
 				{
-					deleteTask &&
-					<Button color='primary' onClick={handleDelete}>
+					deleteTask && (
+          <Button color='primary' onClick={handleDelete}>
 						Delete
-					</Button>
-				}
+          </Button>
+        )}
 				<Button color='primary' onClick={handleSaveTask}>
 					Save
 				</Button>
