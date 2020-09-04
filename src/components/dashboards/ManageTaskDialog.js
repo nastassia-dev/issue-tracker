@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -67,6 +68,18 @@ const ManageTaskDialog = ({ task = {}, isOpen, setIsOpen, saveTask, deleteTask }
 			</DialogActions>
 		</Dialog>
 	);
+};
+
+ManageTaskDialog.defaultProps = {
+	task: {},
+};
+
+ManageTaskDialog.propTypes = {
+	task: PropTypes.objectOf(PropTypes.object()),
+	isOpen: PropTypes.bool.isRequired,
+	setIsOpen: PropTypes.func.isRequired,
+	saveTask: PropTypes.func.isRequired,
+	deleteTask: PropTypes.func.isRequired,
 };
 
 export default ManageTaskDialog;

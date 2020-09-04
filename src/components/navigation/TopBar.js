@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import clsx from 'clsx';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -13,7 +14,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import { makeStyles } from '@material-ui/core/styles';
 
 const drawerWidth = 240;
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
 	toolbar: {
 		paddingRight: 24,
 	},
@@ -55,32 +56,38 @@ const TopBar = ({ open, handleDrawerOpen, dashboard }) => {
 						onClick={handleDrawerOpen}
 						className={clsx(classes.menuButton, open && classes.menuButtonHidden)}
 					>
-						<MenuIcon/>
+						<MenuIcon />
 					</IconButton>
 					<Typography component='h1' variant='h6' color='inherit' noWrap className={classes.title}>
 						{dashboard.title || 'My Workspace'}
 					</Typography>
 					<IconButton color='inherit'>
 						<Badge badgeContent={2} max={10} color='secondary'>
-							<NotificationsIcon/>
+							<NotificationsIcon />
 						</Badge>
 					</IconButton>
 					<IconButton
 						color='inherit'
 					>
-						<GitHub/>
+						<GitHub />
 					</IconButton>
 					<IconButton
 						color='inherit'
 					>
-						<AccountCircle/>
+						<AccountCircle />
 					</IconButton>
 				</Toolbar>
 			</AppBar>
 	);
 };
 
-const mapStateToProps = (state) => ({
+TopBar.propTypes = {
+	open: PropTypes.bool.isRequired,
+	handleDrawerOpen: Prop.func.isRequired,
+	dashboard: PropTypes.objectOf(PropTypes.object()).isRequired,
+};
+
+const mapStateToProps = state => ({
 	dashboard: state.dashboard.dashboard,
 });
 

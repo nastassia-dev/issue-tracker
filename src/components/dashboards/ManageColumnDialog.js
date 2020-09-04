@@ -11,7 +11,7 @@ const fieldProps = {
 	margin: 'normal',
 	variant: 'outlined',
 	required: true,
-	InputLabelProps: {shrink: true},
+	InputLabelProps: { shrink: true },
 };
 const defaultColumn = { title: '' };
 
@@ -29,14 +29,14 @@ const ManageColumnDialog = ({ open, handleSave, handleClose }) => {
 		setErrors(prevState => ({
 			...prevState,
 			[name]: false,
-		}))
+		}));
 	};
 	const isFormValid = () => {
 		const { title } = column;
-		const errors = {};
+		const err = {};
 		if (!title) errors.title = true;
-		setErrors(errors);
-		return Object.keys(errors).length === 0;
+		setErrors(err);
+		return Object.keys(err).length === 0;
 	};
 	const handleSaveConfirm = () => {
 		if (!isFormValid()) return;
@@ -45,7 +45,7 @@ const ManageColumnDialog = ({ open, handleSave, handleClose }) => {
 
 	return (
 		<Dialog fullWidth open={open} onClose={handleClose}>
-			<DialogTitle style={{paddingBottom: 0}}>
+			<DialogTitle style={{ paddingBottom: 0 }}>
 				Add Column
 			</DialogTitle>
 			<DialogContent>
@@ -65,12 +65,18 @@ const ManageColumnDialog = ({ open, handleSave, handleClose }) => {
 				<Button color='primary' onClick={handleClose}>
 					Cancel
 				</Button>
-				<Button color='primary' onClick={handleSaveConfirm} >
+				<Button color='primary' onClick={handleSaveConfirm}>
 					Save
 				</Button>
 			</DialogActions>
 		</Dialog>
-	)
+	);
+};
+
+ManageColumnDialog.propTypes = {
+	open: PropTypes.bool.isRequired,
+	handleSave: PropTypes.func.isRequired,
+	handleClose: PropTypes.func.isRequired,
 };
 
 export default ManageColumnDialog;

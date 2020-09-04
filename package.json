@@ -47,6 +47,7 @@
     "postcss-normalize": "8.0.1",
     "postcss-preset-env": "6.7.0",
     "postcss-safe-parser": "4.0.1",
+    "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-app-polyfill": "^1.0.6",
     "react-beautiful-dnd": "^13.0.0",
@@ -80,13 +81,27 @@
     "lint": "eslint src"
   },
   "eslintConfig": {
-    "extends": ["airbnb-standard"],
+    "root": true,
+    "extends": [
+      "airbnb-standard"
+    ],
     "rules": {
       "indent": "off",
       "no-tabs": "off",
       "comma-dangle": "off",
       "object-curly-newline": "off",
-      "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+      "no-case-declarations": "off",
+      "no-undef": "off",
+      "max-len": ["error", { "code": 120 }],
+      "react/jsx-filename-extension": [
+        1,
+        {
+          "extensions": [
+            ".js",
+            ".jsx"
+          ]
+        }
+      ],
       "react/jsx-indent": "off",
       "react/jsx-indent-props": "off",
       "jsx-quotes": "off"

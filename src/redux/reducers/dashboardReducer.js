@@ -1,8 +1,8 @@
 import * as types from '../actions/types';
 import initialState from './initialState';
 
-export default function dashboardReducer(state = initialState.dashboard, action) {
-	switch(action.type) {
+export default function dashboardReducer (state = initialState.dashboard, action) {
+	switch (action.type) {
 		case types.RESET_DASHBOARD:
 			return {
 				...initialState.dashboard,
@@ -12,7 +12,7 @@ export default function dashboardReducer(state = initialState.dashboard, action)
 				...state,
 				isLoading: false,
 				loadError: null,
-				dashboard: {...action.dashboard},
+				dashboard: { ...action.dashboard },
 			};
 		case types.LOAD_DASHBOARD_ERROR:
 			return {
@@ -24,13 +24,13 @@ export default function dashboardReducer(state = initialState.dashboard, action)
 			return {
 				...state,
 				isSaving: false,
-				dashboard: {...action.dashboard},
+				dashboard: { ...action.dashboard },
 			};
 		case types.UPDATE_DASHBOARD_SUCCESS:
 			return {
 				...state,
 				isSaving: false,
-				dashboard: {...action.dashboard},
+				dashboard: { ...action.dashboard },
 			};
 		case types.SAVE_COLUMN_SUCCESS:
 			// TODO split create and update
@@ -47,7 +47,7 @@ export default function dashboardReducer(state = initialState.dashboard, action)
 			if (Array.isArray(action.column)) {
 				const ids = state.dashboard.columns.map(c => c.id);
 				const columns = [...state.dashboard.columns];
-				action.column.forEach(c => {
+				action.column.forEach((c) => {
 					const index = ids.indexOf(c.id);
 					columns.splice(index, 1, c);
 				});
@@ -57,14 +57,14 @@ export default function dashboardReducer(state = initialState.dashboard, action)
 						...state.dashboard,
 						columns,
 					}
-				}
+				};
 			}
 			return {
 				...state,
 				dashboard: {
 					...state.dashboard,
 					columns: state.dashboard.columns
-						.map(c => (c.id === action.column.id) ? action.column : c),
+						.map(c => ((c.id === action.column.id) ? action.column : c)),
 				},
 			};
 		case types.DELETE_COLUMN_OPTIMISTIC:
@@ -81,12 +81,12 @@ export default function dashboardReducer(state = initialState.dashboard, action)
 			// TODO split UPDATE(SAVE) & CREATE
 			const columns = action.column
 				? state.dashboard.columns
-					.map(c => (c.id === action.column.id) ? action.column : c)
+					.map(c => ((c.id === action.column.id) ? action.column : c))
 				: state.dashboard.columns;
 			const task = state.dashboard.tasks.find(t => t.id === action.task.id);
 			const tasks = task
-				? state.dashboard.tasks.map(t => (t.id === action.task.id) ? action.task : t)
-				: [...state.dashboard.tasks, action.task] ;
+				? state.dashboard.tasks.map(t => ((t.id === action.task.id) ? action.task : t))
+				: [...state.dashboard.tasks, action.task];
 			return {
 				...state,
 				dashboard: {
@@ -100,7 +100,7 @@ export default function dashboardReducer(state = initialState.dashboard, action)
 				...state,
 				dashboard: {
 					...state.dashboard,
-					columns: state.dashboard.columns.map(c => (c.id === action.column.id) ? action.column : c),
+					columns: state.dashboard.columns.map(c => ((c.id === action.column.id) ? action.column : c)),
 					tasks: state.dashboard.tasks.filter(t => t !== action.id),
 				}
 			};

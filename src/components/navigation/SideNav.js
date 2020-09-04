@@ -14,7 +14,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 
 const drawerWidth = 240;
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
 	toolbarIcon: {
 		display: 'flex',
 		alignItems: 'center',
@@ -57,10 +57,10 @@ const SideNav = ({ open, handleDrawerClose }) => {
 		>
 			<div className={classes.toolbarIcon}>
 				<IconButton onClick={handleDrawerClose}>
-					<ChevronLeftIcon/>
+					<ChevronLeftIcon />
 				</IconButton>
 			</div>
-			<Divider/>
+			<Divider />
 			<List>
 				<ListItem button component={RouterLink} to='/'>
 					<ListItemIcon>
@@ -76,7 +76,12 @@ const SideNav = ({ open, handleDrawerClose }) => {
 				</ListItem>
 			</List>
 		</Drawer>
-	)
+	);
+};
+
+SideNav.propTypes = {
+	open: PropTypes.bool.isRequired,
+	handleDrawerClose: PropTypes.func.isRequired,
 };
 
 export default SideNav;

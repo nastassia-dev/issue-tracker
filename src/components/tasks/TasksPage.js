@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import * as tasksActions from '../../redux/actions/tasksActions';
@@ -14,24 +15,23 @@ const TasksPage = ({ tasks, loadTasks }) => {
 	return (
 		<>
 			<Title>Issues</Title>
-			{tasks.map(t => {
-				return (
+			{tasks.map(t => (
 					<div key={t.id}>{t.title}</div>
-				);
-			})}
+				))}
 		</>
 	);
 };
 
-const mapStateToProps = state => {
-	return {
-		tasks: state.tasks,
-	}
+TasksPage.propTypes = {
+	tasks: PropTypes.objectOf(PropTypes.object()).isRequired,
+	loadTasks: PropTypes.func.isRequired,
 };
-const mapDispatchToProps = dispatch => {
-	return {
-		loadTasks: () => dispatch(tasksActions.loadTasks()),
-	}
-};
+
+const mapStateToProps = state => ({
+	tasks: state.tasks,
+});
+const mapDispatchToProps = dispatch => ({
+	loadTasks: () => dispatch(tasksActions.loadTasks()),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(TasksPage);

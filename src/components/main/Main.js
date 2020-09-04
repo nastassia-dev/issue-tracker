@@ -7,7 +7,7 @@ import Paper from '@material-ui/core/Paper';
 import Title from '../common/Title';
 import TasksPage from '../tasks/TasksPage';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
 	paper: {
 		padding: theme.spacing(2),
 		display: 'flex',
@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-export default function Main() {
+export default function Main () {
 	const classes = useStyles();
 	const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
@@ -37,10 +37,9 @@ export default function Main() {
 			</Grid>
 			<Grid item xs={12}>
 				<Paper className={classes.paper}>
-					<TasksPage/>
+					<TasksPage />
 				</Paper>
 			</Grid>
 		</Grid>
-
 	);
 }

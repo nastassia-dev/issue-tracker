@@ -37,33 +37,33 @@ const DashboardsPage = ({
 				}
 			});
 
-	};*/
-	const handleViewDashboard = dashboard => {
+	}; */
+	const handleViewDashboard = (dashboard) => {
 		history.push({
 			pathname: `/dashboard/${dashboard.slug}`,
 			state: { dashboard }
-		})
+		});
 	};
-	const handleEditDashboard = dashboard => {
+	const handleEditDashboard = (dashboard) => {
 		setDashboard(dashboard);
 		setIsDialogOpen(true);
 	};
-	const handleSaveDashboard = dashboard => {
-		//TODO change to optimistic update
+	const handleSaveDashboard = (dashboard) => {
+		// TODO change to optimistic update
 		saveDashboard(dashboard)
-			.then(res => {
+			.then((res) => {
 				setIsDialogOpen(false);
 				setDashboard(null);
 				if (!dashboard.id) {
 					return history.push({
 						pathname: `/dashboard/${res.slug}`,
-						state: {dashboard: res},
+						state: { dashboard: res },
 					});
 				}
 				resetDashboard();
 			});
 	};
-	const handleDeleteDashboard = dashboard => {
+	const handleDeleteDashboard = (dashboard) => {
 		// TODO ask to confirm delete
 		setDashboard(null);
 		deleteDashboard(dashboard);
@@ -92,21 +92,17 @@ const DashboardsPage = ({
 				<AddIcon />
 			</FloatingBtn>
 		</>
-	)
+	);
 };
 
-const mapStateToProps = state => {
-	return {
-		dashboardsState: state.dashboards,
-	}
-};
-const mapDispatchToProps = dispatch => {
-	return {
-		loadDashboards: () => dispatch(dashboardActions.loadDashboards()),
-		saveDashboard: (dashboard) => dispatch(dashboardActions.saveDashboard(dashboard)),
-		deleteDashboard: (dashboard) => dispatch(dashboardActions.deleteDashboard(dashboard)),
-		resetDashboard: () => dispatch(dashboardActions.resetDashboard()),
-	}
-};
+const mapStateToProps = state => ({
+	dashboardsState: state.dashboards,
+});
+const mapDispatchToProps = dispatch => ({
+	loadDashboards: () => dispatch(dashboardActions.loadDashboards()),
+	saveDashboard: dashboard => dispatch(dashboardActions.saveDashboard(dashboard)),
+	deleteDashboard: dashboard => dispatch(dashboardActions.deleteDashboard(dashboard)),
+	resetDashboard: () => dispatch(dashboardActions.resetDashboard()),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(DashboardsPage);

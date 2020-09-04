@@ -91,7 +91,7 @@ export const deleteTaskError = error => ({
 	error,
 });
 
-export function loadDashboards() {
+export function loadDashboards () {
 	return function (dispatch) {
 		dispatch(loadDashboardsStart());
 		return dashboardApi
@@ -101,13 +101,13 @@ export function loadDashboards() {
 	};
 }
 
-export function saveDashboard(dashboard) {
+export function saveDashboard (dashboard) {
 	const dashboardId = dashboard.id;
 	return function (dispatch) {
 		dispatch(saveDashboardStart());
 		return dashboardApi
 			.saveDashboard(dashboard)
-			.then(savedDashboard => {
+			.then((savedDashboard) => {
 				dashboardId
 					? dispatch(updateDashboardSuccess(savedDashboard))
 					: dispatch(saveDashboardSuccess(savedDashboard));
@@ -117,7 +117,7 @@ export function saveDashboard(dashboard) {
 	};
 }
 
-export function deleteDashboard(dashboard) {
+export function deleteDashboard (dashboard) {
 	const dashboardId = dashboard.id;
 	return function (dispatch) {
 		dispatch(deleteDashboardOptimistic(dashboardId));
@@ -127,12 +127,12 @@ export function deleteDashboard(dashboard) {
 	};
 }
 
-export function loadDashboard(id) {
+export function loadDashboard (id) {
 	return function (dispatch) {
 		dispatch(loadDashboardStart());
 		return dashboardApi
 			.loadDashboard(id)
-			.then(res => {
+			.then((res) => {
 				const dashboard = res[0];
 				if (!dashboard) {
 					dispatch(loadDashboardError('Not Found'));
@@ -144,7 +144,7 @@ export function loadDashboard(id) {
 	};
 }
 
-export function saveColumn(column) {
+export function saveColumn (column) {
 	return function (dispatch) {
 		return dashboardApi
 			.saveColumn(column)
@@ -152,16 +152,16 @@ export function saveColumn(column) {
 			.catch(e => dispatch(saveColumnError(e)));
 	};
 }
-export function deleteColumn(dashboard, columnId) {
+export function deleteColumn (dashboard, columnId) {
 	return function (dispatch) {
 		dispatch(deleteColumnOptimistic(columnId));
 		const columnOrder = dashboard.columnOrder.filter(id => id !== columnId);
-		return dashboardApi.saveDashboard({...dashboard, columnOrder})
+		return dashboardApi.saveDashboard({ ...dashboard, columnOrder })
 			.then(() => dashboardApi.deleteColumn(columnId))
 			.catch(e => dispatch(deleteColumnError(e)));
-	}
+	};
 }
-export function saveColumnBulk(columns) {
+export function saveColumnBulk (columns) {
 	return function (dispatch) {
 		return dashboardApi
 			.saveColumnBulk(columns)
@@ -170,7 +170,7 @@ export function saveColumnBulk(columns) {
 	};
 }
 
-export function saveTask(column, task) {
+export function saveTask (column, task) {
 	return function (dispatch) {
 		dispatch(saveTaskStart());
 		return dashboardApi
@@ -179,7 +179,7 @@ export function saveTask(column, task) {
 			.catch(e => dispatch(saveTaskError(e)));
 	};
 }
-export function deleteTask(column, id) {
+export function deleteTask (column, id) {
 	return function (dispatch) {
 		const taskIds = column.taskIds.filter(t => t !== id);
 		const newColumn = { ...column, taskIds };
@@ -187,5 +187,5 @@ export function deleteTask(column, id) {
 		return dashboardApi.saveColumn(newColumn)
 			.then(() => dashboardApi.deleteTask(id))
 			.catch(e => dispatch(deleteTaskError(e)));
-	}
+	};
 }

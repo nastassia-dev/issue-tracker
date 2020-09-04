@@ -10,7 +10,7 @@ const loadDashboards = () => fetchApi.GET('/dashboards')
 		});
 
 const saveDashboard = (dashboard) => {
-	const {id} = dashboard;
+	const { id } = dashboard;
 	const url = id ? `/dashboards/${id}` : '/dashboards/columns';
 	const method = id ? reqType.PUT : reqType.POST;
 	return fetchApi[method](url, dashboard);

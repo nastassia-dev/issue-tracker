@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -88,6 +89,16 @@ const ManageDashboardDialog = ({ dashboard: dashboardProp, open, handleSave, han
 			</DialogActions>
 		</Dialog>
 	);
+};
+
+ManageDashboardDialog.propTypes = {
+	dashboard: PropTypes.objectOf(PropTypes.shape({
+		title: PropTypes.string.isRequired,
+		description: PropTypes.string.isRequired,
+	})).isRequired,
+	open: PropTypes.bool.isRequired,
+	handleSave: PropTypes.func.isRequired,
+	handleClose: PropTypes.func.isRequired,
 };
 
 export default ManageDashboardDialog;

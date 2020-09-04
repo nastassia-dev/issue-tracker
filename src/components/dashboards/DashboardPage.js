@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import AddIcon from '@material-ui/icons/Add'
+import AddIcon from '@material-ui/icons/Add';
 
 import * as dashboardsActions from '../../redux/actions/dashboardsActions';
 import DashboardDragDropContainer from './DashboardDragDropContainer';
@@ -28,8 +28,8 @@ const DashboardPage = ({
 	}, [slug]);
 
 	const handleAddIconClick = () => setIsDialogOpen(true);
-	const handleBulkColumnSave = (columns) => saveColumnBulk(columns);
-	const handleColumnSave = column => {
+	const handleBulkColumnSave = columns => saveColumnBulk(columns);
+	const handleColumnSave = (column) => {
 		setIsDialogOpen(false);
 		saveColumn({ ...column, dashboardId: dashboard.id });
 	};
@@ -56,24 +56,22 @@ const DashboardPage = ({
 						handleColumnSave={handleBulkColumnSave}
 					/>
 					<FloatingBtn color='primary' tooltipTitle='Add Column' onClick={handleAddIconClick}>
-						<AddIcon/>
+						<AddIcon />
 					</FloatingBtn>
 				</>
 				}
 			</>
-	)
+	);
 };
 
 const mapStateToProps = state => ({
 	dashboardState: state.dashboard,
 });
-const mapDispatchToProps = dispatch => {
-	return {
-		loadDashboard: (id) => dispatch(dashboardsActions.loadDashboard(id)),
+const mapDispatchToProps = dispatch => ({
+		loadDashboard: id => dispatch(dashboardsActions.loadDashboard(id)),
 		resetDashboard: () => dispatch(dashboardsActions.resetDashboard()),
-		saveColumnBulk: (columns) => dispatch(dashboardsActions.saveColumnBulk(columns)),
-		saveColumn: (column) => dispatch(dashboardsActions.saveColumn(column)),
-	};
-};
+		saveColumnBulk: columns => dispatch(dashboardsActions.saveColumnBulk(columns)),
+		saveColumn: column => dispatch(dashboardsActions.saveColumn(column)),
+	});
 
 export default connect(mapStateToProps, mapDispatchToProps)(DashboardPage);

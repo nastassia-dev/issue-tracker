@@ -10,10 +10,10 @@ const Navigation = () => {
 	const handleDrawerClose = () => setOpen(false);
 	return (
 		<>
-			<TopBar open={open} handleDrawerOpen={handleDrawerOpen}/>
-			<SideNav open={open} handleDrawerClose={handleDrawerClose}/>
+			<TopBar open={open} handleDrawerOpen={handleDrawerOpen} />
+			<SideNav open={open} handleDrawerClose={handleDrawerClose} />
 		</>
-	)
+	);
 };
 
 export default Navigation;

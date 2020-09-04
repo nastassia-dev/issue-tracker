@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Droppable } from 'react-beautiful-dnd';
 import Paper from '@material-ui/core/Paper';
@@ -28,16 +29,17 @@ const DroppableColumn = ({ column, ownTasks: tasks, dashboard, saveColumn, saveT
 	const [showTitleEdit, setShowTitleEdit] = useState(false);
 	const classes = useStyles();
 	const isTitleValid = value => true;
-	const onTitleSave = value => {
+	const onTitleSave = (value) => {
 		setShowTitleEdit(false);
-		saveColumn({...column, title: value});
+		saveColumn({ ...column, title: value });
 	};
 	const handleTaskSave = task => saveTask(column, task);
 	const handleTaskDelete = id => deleteTask(column, id);
-	const handleAction = name => {
+	const handleAction = (name) => {
 		if (name === EDIT) return setShowTitleEdit(true);
 		// TODO ask to confirm delete
 		if (name === DELETE) return deleteColumn(dashboard, column.id);
+		return null;
 	};
 	return (
 		<Paper className={classes.column}>
@@ -49,7 +51,9 @@ const DroppableColumn = ({ column, ownTasks: tasks, dashboard, saveColumn, saveT
 				onTitleSave={onTitleSave}
 				onEditCancel={() => setShowTitleEdit(false)}
 			/>
-			{!showTitleEdit && <MoreVertMenu options={actionOpts} styles={menuStyles} handleAction={handleAction}/>}
+			{!showTitleEdit	&&
+				<MoreVertMenu options={actionOpts} styles={menuStyles} handleAction={handleAction} />
+			}
 			<Droppable
 				droppableId={column.id}
 			>
@@ -58,7 +62,7 @@ const DroppableColumn = ({ column, ownTasks: tasks, dashboard, saveColumn, saveT
 						ref={provided.innerRef}
 						{...provided.droppableProps}
 						style={{
-							backgroundColor: (snapshot.isDraggingOver ? 'grey': 'yellow'),
+							backgroundColor: (snapshot.isDraggingOver ? 'grey' : 'yellow'),
 							transition: 'background-color 0.2s ease',
 						}}
 					>
@@ -77,15 +81,29 @@ const DroppableColumn = ({ column, ownTasks: tasks, dashboard, saveColumn, saveT
 			</Droppable>
 			<ManageTaskContainer saveTask={handleTaskSave} />
 		</Paper>
-	)
+	);
+};
 
+DroppableColumn.propTypes = {
+	column: PropTypes.objectOf(PropTypes.shape({
+		id: PropTypes.string.isRequired,
+		title: PropTypes.string.isRequired,
+	})).isRequired,
+	ownTasks: PropTypes.objectOf(PropTypes.shape({
+		id: PropTypes.string.isRequired,
+	})).isRequired,
+	dashboard: PropTypes.objectOf(PropTypes.shape({})).isRequired,
+	saveColumn: PropTypes.func.isRequired,
+	saveTask: PropTypes.func.isRequired,
+	deleteTask: PropTypes.func.isRequired,
+	deleteColumn: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
 	dashboard: state.dashboard.dashboard,
 });
-const mapDispatchToProps = (dispatch) => ({
-	saveColumn: (column) => dispatch(dashboardsActions.saveColumn(column)),
+const mapDispatchToProps = dispatch => ({
+	saveColumn: column => dispatch(dashboardsActions.saveColumn(column)),
 	deleteColumn: (dashboard, columnId) => dispatch(dashboardsActions.deleteColumn(dashboard, columnId)),
 	saveTask: (column, task) => dispatch(dashboardsActions.saveTask(column, task)),
 	deleteTask: (column, id) => dispatch(dashboardsActions.deleteTask(column, id)),

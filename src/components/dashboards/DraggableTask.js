@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { Draggable } from 'react-beautiful-dnd';
 import { makeStyles } from '@material-ui/core/styles';
 import EditIcon from '@material-ui/icons/Edit';
@@ -59,6 +60,14 @@ const Task = ({ task, isDragging, innerRef, saveTask, deleteTask, ...props }) =>
 	);
 };
 
+Task.propTypes = {
+	task: PropTypes.objectOf(PropTypes.object()).isRequired,
+	isDragging: PropTypes.bool.isRequired,
+	innerRef: PropTypes.objectOf(PropTypes.object()).isRequired,
+	saveTask: PropTypes.func.isRequired,
+	deleteTask: PropTypes.func.isRequired,
+};
+
 const DraggableTask = ({ task, index, saveTask, deleteTask }) => (
 		<Draggable
 			draggableId={task.id}
@@ -77,5 +86,12 @@ const DraggableTask = ({ task, index, saveTask, deleteTask }) => (
 			)}
 		</Draggable>
 	);
+
+DraggableTask.propTypes = {
+  task: PropTypes.objectOf(PropTypes.object()).isRequired,
+	index: PropTypes.number.isRequired,
+  saveTask: PropTypes.func.isRequired,
+  deleteTask: PropTypes.func.isRequired,
+};
 
 export default DraggableTask;

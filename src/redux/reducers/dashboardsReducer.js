@@ -2,8 +2,8 @@ import * as types from '../actions/types';
 import initialState from './initialState';
 import { sortAndSplitDashboards } from '../../api/utils';
 
-export default function dashboardsReducer(state = initialState.dashboards, action) {
-	switch(action.type) {
+export default function dashboardsReducer (state = initialState.dashboards, action) {
+	switch (action.type) {
 		case types.LOAD_DASHBOARDS_START:
 			return {
 				...state,
@@ -19,7 +19,7 @@ export default function dashboardsReducer(state = initialState.dashboards, actio
 			};
 		case types.UPDATE_DASHBOARD_SUCCESS:
 			const dashboards = [...state.active, ...state.archived]
-				.map(d => d.id === action.dashboard.id ? action.dashboard : d);
+				.map(d => (d.id === action.dashboard.id ? action.dashboard : d));
 			const data = sortAndSplitDashboards(dashboards);
 			return {
 				...state,
