@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Fab from '@material-ui/core/Fab';
 import Tooltip from '@material-ui/core/Tooltip';
@@ -20,7 +21,14 @@ const FloatingBtn = ({ color, tooltipTitle, children, onClick }) => {
 				{children}
 			</Fab>
 		</Tooltip>
-	)
+	);
+};
+
+FloatingBtn.propTypes = {
+	color: PropTypes.string.isRequired,
+	tooltipTitle: PropTypes.string.isRequired,
+	children: PropTypes.objectOf(PropTypes.object()).isRequired,
+	onClick: PropTypes.func.isRequired,
 };
 
 export default FloatingBtn;

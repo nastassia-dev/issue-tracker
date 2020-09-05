@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import AddIcon from '@material-ui/icons/Add';
@@ -9,12 +10,12 @@ import FloatingBtn from '../common/FloatingBtn';
 import ManageColumnDialog from './ManageColumnDialog';
 
 const DashboardPage = ({
-	                       location,
-	                       dashboardState,
-	                       loadDashboard,
-	                       saveColumnBulk,
-	                       saveColumn,
-	                       resetDashboard
+	location,
+	dashboardState,
+	loadDashboard,
+	saveColumnBulk,
+	saveColumn,
+	resetDashboard,
 }) => {
 	// const dashboardTemp = (location.state && location.state.dashboard) || {};
 	const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -34,23 +35,21 @@ const DashboardPage = ({
 		saveColumn({ ...column, dashboardId: dashboard.id });
 	};
 
+	if (loadError) {
+		return <Redirect to='/dashboards' />;
+	}
+
 	return (
-		loadError
-			?
-			<Redirect to='/dashboards'/>
-			:
-			<>
-				{dashboard.id &&
+		<>
+			{dashboard.id && (
 				<>
-					{
-						isDialogOpen
-						&&
+					{isDialogOpen && (
 						<ManageColumnDialog
 							open={isDialogOpen}
 							handleSave={handleColumnSave}
 							handleClose={() => setIsDialogOpen(false)}
 						/>
-					}
+					)}
 					<DashboardDragDropContainer
 						dashboard={dashboard}
 						handleColumnSave={handleBulkColumnSave}
@@ -59,9 +58,21 @@ const DashboardPage = ({
 						<AddIcon />
 					</FloatingBtn>
 				</>
-				}
-			</>
+			)}
+		</>
 	);
+};
+
+DashboardPage.propTypes = {
+	location: PropTypes.objectOf(PropTypes.object()).isRequired,
+	dashboardState: PropTypes.shape({
+		dashboard: PropTypes.objectOf(PropTypes.object()).isRequired,
+		loadError: PropTypes.bool.isRequired,
+	}).isRequired,
+	loadDashboard: PropTypes.func.isRequired,
+	saveColumnBulk: PropTypes.func.isRequired,
+	saveColumn: PropTypes.func.isRequired,
+	resetDashboard: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { DragDropContext } from 'react-beautiful-dnd';
 import Grid from '@material-ui/core/Grid';
 
@@ -59,6 +60,15 @@ const DashboardDragDropContainer = ({ dashboard, handleColumnSave }) => {
 			</Grid>
 		</DragDropContext>
 	);
+};
+
+DashboardDragDropContainer.propTypes = {
+	dashboard: PropTypes.shape({
+		columns: PropTypes.objectOf(PropTypes.object()).isRequired,
+		tasks: PropTypes.objectOf(PropTypes.object()).isRequired,
+		columnOrder: PropTypes.objectOf(PropTypes.object()).isRequired,
+	}).isRequired,
+	handleColumnSave: PropTypes.func.isRequired,
 };
 
 export default DashboardDragDropContainer;

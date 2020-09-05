@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Card from '@material-ui/core/Card';
 import { makeStyles } from '@material-ui/core/styles';
 import CardContent from '@material-ui/core/CardContent';
@@ -36,12 +37,13 @@ const useStyles = makeStyles({
 const DashboardCard = ({ dashboard, actions }) => {
 	const classes = useStyles();
 
-	const handleAction = name => {
+	const handleAction = (name) => {
 		if (name === VIEW) return actions.handleViewDashboard(dashboard);
 		if (name === EDIT) return actions.handleEditDashboard(dashboard);
 		if (name === ARCHIVE) return actions.handleSaveDashboard({ ...dashboard, status: 'archived' });
 		if (name === UNARCHIVE) return actions.handleSaveDashboard({ ...dashboard, status: 'active' });
 		if (name === DELETE) return actions.handleDeleteDashboard(dashboard);
+		return null;
 	};
 	const actionOpts = [VIEW, EDIT, (dashboard.status === 'active' ? ARCHIVE : UNARCHIVE), DELETE];
 	return (
@@ -50,7 +52,7 @@ const DashboardCard = ({ dashboard, actions }) => {
 				<Typography variant='h5' component='h2' gutterBottom>
 					{dashboard.title}
 				</Typography>
-				<MoreVertMenu options={actionOpts} handleAction={handleAction}/>
+				<MoreVertMenu options={actionOpts} handleAction={handleAction} />
 				<Typography color='textSecondary'>
 					{dashboard.description}
 				</Typography>
@@ -62,7 +64,12 @@ const DashboardCard = ({ dashboard, actions }) => {
 				</Typography>
 			</CardContent>
 		</Card>
-	)
+	);
+};
+
+DashboardCard.propTypes = {
+	dashboard: PropTypes.objectOf(PropTypes.object()).isRequired,
+	actions: PropTypes.objectOf(PropTypes.object()).isRequired,
 };
 
 export default DashboardCard;

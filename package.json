@@ -91,6 +91,7 @@
       "comma-dangle": "off",
       "object-curly-newline": "off",
       "no-case-declarations": "off",
+      "func-names": "off",
       "no-undef": "off",
       "max-len": ["error", { "code": 120 }],
       "react/jsx-filename-extension": [

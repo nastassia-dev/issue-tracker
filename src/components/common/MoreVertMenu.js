@@ -1,8 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import IconButton from '@material-ui/core/IconButton';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import MoreVertIcon from '@material-ui/icons/MoreVert'
+import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { makeStyles } from '@material-ui/core/styles';
 
 const ITEM_HEIGHT = 30;
@@ -17,8 +18,8 @@ const useStyles = makeStyles({
 		...styles.menuItem,
 	}),
 });
-const defaultStyleProp = { root: {}, menuItem: {}};
-const MoreVertMenu = ({ options, styles = defaultStyleProp, handleAction }) => {
+const defaultStyleProp = { root: {}, menuItem: {} };
+const MoreVertMenu = ({ options, styles, handleAction }) => {
 	const [anchorEl, setAnchorEl] = React.useState(null);
 	const classes = useStyles(styles);
 	const open = Boolean(anchorEl);
@@ -47,7 +48,7 @@ const MoreVertMenu = ({ options, styles = defaultStyleProp, handleAction }) => {
 					},
 				}}
 			>
-				{options.map((option) => (
+				{options.map(option => (
 					<MenuItem
 						data-action-name={option}
 						key={option}
@@ -59,7 +60,16 @@ const MoreVertMenu = ({ options, styles = defaultStyleProp, handleAction }) => {
 				))}
 			</Menu>
 		</div>
-	)
+	);
+};
+
+MoreVertMenu.defaultProps = {
+	styles: defaultStyleProp,
+};
+MoreVertMenu.propTypes = {
+	options: PropTypes.objectOf(PropTypes.object()).isRequired,
+	styles: PropTypes.objectOf(PropTypes.object()),
+	handleAction: PropTypes.func.isRequired,
 };
 
 export default MoreVertMenu;
