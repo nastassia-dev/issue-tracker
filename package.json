@@ -94,6 +94,7 @@
       "func-names": "off",
       "no-undef": "off",
       "max-len": ["error", { "code": 120 }],
+      "comma-dangle": ["error", "always-multiline"],
       "react/jsx-filename-extension": [
         1,
         {

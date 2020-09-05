@@ -16,7 +16,7 @@ const DashboardsPage = ({
 	loadDashboards,
 	saveDashboard,
 	resetDashboard,
-	deleteDashboard
+	deleteDashboard,
 }) => {
 	const [isDialogOpen, setIsDialogOpen] = useState(false);
 	const [dashboard, setDashboard] = useState(null);
@@ -42,7 +42,7 @@ const DashboardsPage = ({
 	const handleViewDashboard = (d) => {
 		history.push({
 			pathname: `/dashboard/${d.slug}`,
-			state: { dashboard: d }
+			state: { dashboard: d },
 		});
 	};
 	const handleEditDashboard = (d) => {

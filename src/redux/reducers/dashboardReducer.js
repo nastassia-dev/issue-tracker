@@ -41,7 +41,7 @@ export default function dashboardReducer (state = initialState.dashboard, action
 						...state.dashboard,
 						...action.column.dashboard,
 						columns: [...state.dashboard.columns, action.column.column],
-					}
+					},
 				};
 			}
 			if (Array.isArray(action.column)) {
@@ -56,7 +56,7 @@ export default function dashboardReducer (state = initialState.dashboard, action
 					dashboard: {
 						...state.dashboard,
 						columns,
-					}
+					},
 				};
 			}
 			return {
@@ -75,7 +75,7 @@ export default function dashboardReducer (state = initialState.dashboard, action
 					...state.dashboard,
 					columnOrder,
 					columns: state.dashboard.columns.filter(c => c.id !== action.id),
-				}
+				},
 			};
 		case types.SAVE_TASK_SUCCESS:
 			// TODO split UPDATE(SAVE) & CREATE
@@ -93,7 +93,7 @@ export default function dashboardReducer (state = initialState.dashboard, action
 					...state.dashboard,
 					columns,
 					tasks,
-				}
+				},
 			};
 		case types.DELETE_TASK_OPTIMISTIC:
 			return {
@@ -102,7 +102,7 @@ export default function dashboardReducer (state = initialState.dashboard, action
 					...state.dashboard,
 					columns: state.dashboard.columns.map(c => ((c.id === action.column.id) ? action.column : c)),
 					tasks: state.dashboard.tasks.filter(t => t !== action.id),
-				}
+				},
 			};
 		default:
 			return state;

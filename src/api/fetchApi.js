@@ -15,7 +15,7 @@ const GET = url => fetch(url)
 const PUT = (url, body) => fetch(url, {
 	method: reqType.PUT,
 	headers,
-	body: JSON.stringify(body)
+	body: JSON.stringify(body),
 })
 	.then(handleResponse)
 	.catch(handleError);
@@ -23,7 +23,7 @@ const PUT = (url, body) => fetch(url, {
 const POST = (url, body) => fetch(url, {
 	method: reqType.POST,
 	headers,
-	body: JSON.stringify(body)
+	body: JSON.stringify(body),
 })
 	.then(handleResponse)
 	.catch(handleError);
@@ -36,5 +36,5 @@ export default {
 	GET,
 	PUT,
 	POST,
-	DELETE
+	DELETE,
 };

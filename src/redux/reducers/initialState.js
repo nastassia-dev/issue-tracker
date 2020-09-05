@@ -11,5 +11,5 @@ export default {
 		isLoading: true,
 		loadError: null,
 		dashboard: {},
-	}
+	},
 };

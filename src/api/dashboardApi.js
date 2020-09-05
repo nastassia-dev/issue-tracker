@@ -49,7 +49,7 @@ const saveTask = (column, task) => {
 			return fetchApi.PUT(`/columns/${column.id}`, { ...column, taskIds })
 				.then(savedColumn => ({
 					task: savedTask,
-					column: savedColumn
+					column: savedColumn,
 				}));
 		});
 };
