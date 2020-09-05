@@ -83,8 +83,8 @@ const TopBar = ({ open, handleDrawerOpen, dashboard }) => {
 
 TopBar.propTypes = {
 	open: PropTypes.bool.isRequired,
-	handleDrawerOpen: Prop.func.isRequired,
-	dashboard: PropTypes.objectOf(PropTypes.object()).isRequired,
+	handleDrawerOpen: PropTypes.func.isRequired,
+	dashboard: PropTypes.objectOf(PropTypes.object).isRequired,
 };
 
 const mapStateToProps = state => ({

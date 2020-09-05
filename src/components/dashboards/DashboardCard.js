@@ -68,8 +68,8 @@ const DashboardCard = ({ dashboard, actions }) => {
 };
 
 DashboardCard.propTypes = {
-	dashboard: PropTypes.objectOf(PropTypes.object()).isRequired,
-	actions: PropTypes.objectOf(PropTypes.object()).isRequired,
+	dashboard: PropTypes.objectOf(PropTypes.object).isRequired,
+	actions: PropTypes.objectOf(PropTypes.object).isRequired,
 };
 
 export default DashboardCard;

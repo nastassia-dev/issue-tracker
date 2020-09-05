@@ -17,7 +17,7 @@ PageHeader.defaultProps = {
 	color: 'primary',
 };
 PageHeader.propTypes = {
-	children: PropTypes.objectOf(PropTypes.object()).isRequired,
+	children: PropTypes.objectOf(PropTypes.object).isRequired,
 	color: PropTypes.string,
 };
 

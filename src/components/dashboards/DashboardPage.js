@@ -64,9 +64,9 @@ const DashboardPage = ({
 };
 
 DashboardPage.propTypes = {
-	location: PropTypes.objectOf(PropTypes.object()).isRequired,
+	location: PropTypes.objectOf(PropTypes.object).isRequired,
 	dashboardState: PropTypes.shape({
-		dashboard: PropTypes.objectOf(PropTypes.object()).isRequired,
+		dashboard: PropTypes.objectOf(PropTypes.object).isRequired,
 		loadError: PropTypes.bool.isRequired,
 	}).isRequired,
 	loadDashboard: PropTypes.func.isRequired,

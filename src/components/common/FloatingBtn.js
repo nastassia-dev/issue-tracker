@@ -27,7 +27,7 @@ const FloatingBtn = ({ color, tooltipTitle, children, onClick }) => {
 FloatingBtn.propTypes = {
 	color: PropTypes.string.isRequired,
 	tooltipTitle: PropTypes.string.isRequired,
-	children: PropTypes.objectOf(PropTypes.object()).isRequired,
+	children: PropTypes.objectOf(PropTypes.object).isRequired,
 	onClick: PropTypes.func.isRequired,
 };
 

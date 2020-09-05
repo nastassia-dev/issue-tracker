@@ -61,9 +61,9 @@ const Task = ({ task, isDragging, innerRef, saveTask, deleteTask, ...props }) =>
 };
 
 Task.propTypes = {
-	task: PropTypes.objectOf(PropTypes.object()).isRequired,
+	task: PropTypes.objectOf(PropTypes.object).isRequired,
 	isDragging: PropTypes.bool.isRequired,
-	innerRef: PropTypes.objectOf(PropTypes.object()).isRequired,
+	innerRef: PropTypes.objectOf(PropTypes.object).isRequired,
 	saveTask: PropTypes.func.isRequired,
 	deleteTask: PropTypes.func.isRequired,
 };
@@ -88,7 +88,7 @@ const DraggableTask = ({ task, index, saveTask, deleteTask }) => (
 	);
 
 DraggableTask.propTypes = {
-  task: PropTypes.objectOf(PropTypes.object()).isRequired,
+  task: PropTypes.objectOf(PropTypes.object).isRequired,
 	index: PropTypes.number.isRequired,
   saveTask: PropTypes.func.isRequired,
   deleteTask: PropTypes.func.isRequired,

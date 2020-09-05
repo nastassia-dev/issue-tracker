@@ -23,7 +23,7 @@ const TasksPage = ({ tasks, loadTasks }) => {
 };
 
 TasksPage.propTypes = {
-	tasks: PropTypes.objectOf(PropTypes.object()).isRequired,
+	tasks: PropTypes.objectOf(PropTypes.object).isRequired,
 	loadTasks: PropTypes.func.isRequired,
 };
 

@@ -67,8 +67,8 @@ MoreVertMenu.defaultProps = {
 	styles: defaultStyleProp,
 };
 MoreVertMenu.propTypes = {
-	options: PropTypes.objectOf(PropTypes.object()).isRequired,
-	styles: PropTypes.objectOf(PropTypes.object()),
+	options: PropTypes.objectOf(PropTypes.object).isRequired,
+	styles: PropTypes.objectOf(PropTypes.object),
 	handleAction: PropTypes.func.isRequired,
 };
 

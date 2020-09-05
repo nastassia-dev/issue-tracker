@@ -88,13 +88,20 @@
     "rules": {
       "indent": "off",
       "no-tabs": "off",
-      "comma-dangle": "off",
+      "comma-dangle": [
+        "error",
+        "always-multiline"
+      ],
       "object-curly-newline": "off",
       "no-case-declarations": "off",
       "func-names": "off",
       "no-undef": "off",
-      "max-len": ["error", { "code": 120 }],
-      "comma-dangle": ["error", "always-multiline"],
+      "max-len": [
+        "error",
+        {
+          "code": 120
+        }
+      ],
       "react/jsx-filename-extension": [
         1,
         {

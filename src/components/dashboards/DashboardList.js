@@ -18,9 +18,9 @@ const DashboardList = ({ dashboards, dashboardActions, header = '' }) => (
 );
 
 DashboardList.propTypes = {
-	dashboards: PropTypes.objectOf(PropTypes.object()).isRequired,
-	dashboardActions: PropTypes.objectOf(PropTypes.object()).isRequired,
-	header: PropTypes.objectOf(PropTypes.object()).isRequired,
+	dashboards: PropTypes.objectOf(PropTypes.object).isRequired,
+	dashboardActions: PropTypes.objectOf(PropTypes.object).isRequired,
+	header: PropTypes.objectOf(PropTypes.object).isRequired,
 };
 
 export default DashboardList;

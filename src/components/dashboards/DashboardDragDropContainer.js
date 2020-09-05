@@ -64,9 +64,9 @@ const DashboardDragDropContainer = ({ dashboard, handleColumnSave }) => {
 
 DashboardDragDropContainer.propTypes = {
 	dashboard: PropTypes.shape({
-		columns: PropTypes.objectOf(PropTypes.object()).isRequired,
-		tasks: PropTypes.objectOf(PropTypes.object()).isRequired,
-		columnOrder: PropTypes.objectOf(PropTypes.object()).isRequired,
+		columns: PropTypes.objectOf(PropTypes.object).isRequired,
+		tasks: PropTypes.objectOf(PropTypes.object).isRequired,
+		columnOrder: PropTypes.objectOf(PropTypes.object).isRequired,
 	}).isRequired,
 	handleColumnSave: PropTypes.func.isRequired,
 };

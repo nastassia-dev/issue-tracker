@@ -75,7 +75,7 @@ ManageTaskDialog.defaultProps = {
 };
 
 ManageTaskDialog.propTypes = {
-	task: PropTypes.objectOf(PropTypes.object()),
+	task: PropTypes.objectOf(PropTypes.object),
 	isOpen: PropTypes.bool.isRequired,
 	setIsOpen: PropTypes.func.isRequired,
 	saveTask: PropTypes.func.isRequired,
