@@ -8,27 +8,27 @@ import ManageTaskDialog from './ManageTaskDialog';
 const ManageTaskContainer = ({ saveTask, deleteTask }) => {
 	const [isOpen, setIsOpen] = useState(false);
 
+	if (isOpen) {
+		return (
+			<ManageTaskDialog
+				isOpen={isOpen}
+				setIsOpen={setIsOpen}
+				saveTask={saveTask}
+				deleteTask={deleteTask}
+			/>
+		);
+	}
+
 	return (
-		isOpen
-			?	(
-				<ManageTaskDialog
-					isOpen={isOpen}
-					setIsOpen={setIsOpen}
-					saveTask={saveTask}
-					deleteTask={deleteTask}
-				/>
-				)
-			:	(
-				<Tooltip title='Create Task'>
-					<IconButton
-						style={{ float: 'right', cursor: 'pointer' }}
-						size='small'
-						onClick={() => setIsOpen(true)}
-					>
-						<AddIcon />
-					</IconButton>
-				</Tooltip>
-			)
+		<Tooltip title='Create Task'>
+			<IconButton
+				style={{ float: 'right', cursor: 'pointer' }}
+				size='small'
+				onClick={() => setIsOpen(true)}
+			>
+				<AddIcon />
+			</IconButton>
+		</Tooltip>
 	);
 };
 

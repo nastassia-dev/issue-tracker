@@ -6,7 +6,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { makeStyles } from '@material-ui/core/styles';
 
-const ITEM_HEIGHT = 30;
+const ITEM_HEIGHT = 10;
 const useStyles = makeStyles({
 	root: styles => ({
 		position: 'absolute',
@@ -23,7 +23,7 @@ const MoreVertMenu = ({ options, styles, handleAction }) => {
 	const [anchorEl, setAnchorEl] = React.useState(null);
 	const classes = useStyles(styles);
 	const open = Boolean(anchorEl);
-
+	const totalOptions = options.length || 1;
 	const handleOpen = e => setAnchorEl(e.currentTarget);
 	const handleClose = () => setAnchorEl(null);
 	const handleClick = ({ currentTarget: { dataset: { actionName } } }) => {
@@ -43,7 +43,7 @@ const MoreVertMenu = ({ options, styles, handleAction }) => {
 				onClose={handleClose}
 				PaperProps={{
 					style: {
-						maxHeight: ITEM_HEIGHT * 4.5,
+						maxHeight: totalOptions * ITEM_HEIGHT * 4.5,
 						width: '20ch',
 					},
 				}}

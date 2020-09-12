@@ -57,7 +57,7 @@ const ManageTaskDialog = ({ task = {}, isOpen, setIsOpen, saveTask, deleteTask }
 					Cancel
 				</Button>
 				{
-					deleteTask && (
+					task.content && (
           <Button color='primary' onClick={handleDelete}>
 						Delete
           </Button>

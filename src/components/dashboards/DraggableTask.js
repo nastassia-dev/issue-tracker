@@ -50,7 +50,7 @@ const Task = ({ task, isDragging, innerRef, saveTask, deleteTask, ...props }) =>
 			{
 				showEdit && (
         <IconButton
-					style={{ position: 'absolute', right: 8, top: 8 }}
+					style={{ backgroundColor: '#fafafa', position: 'absolute', right: 8, top: 8 }}
 					size='small'
 					onClick={handleEditClicked}
         >

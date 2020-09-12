@@ -14,7 +14,7 @@ import { ColumnShape, DashboardShape, TaskShape } from '../../prop-type-shapes';
 
 const useStyles = makeStyles(() => ({
 	column: {
-		height: 600,
+		height: 640,
 		width: 300,
 		padding: '10px 5px',
 		backgroundColor: '#e3f1ff',
@@ -44,17 +44,20 @@ const DroppableColumn = ({ column, ownTasks: tasks, dashboard, saveColumn, saveT
 	};
 	return (
 		<Paper className={classes.column}>
-			<EditableTitle
-				title={column.title}
-				isEditing={showTitleEdit}
-				isTitleValid={isTitleValid}
-				onTitleEdit={() => setShowTitleEdit(true)}
-				onTitleSave={onTitleSave}
-				onEditCancel={() => setShowTitleEdit(false)}
-			/>
-			{!showTitleEdit	&&
-				<MoreVertMenu options={actionOpts} styles={menuStyles} handleAction={handleAction} />
-			}
+			<div style={{ height: 595, display: 'flex', flexDirection: 'column' }}>
+			<div>
+				<EditableTitle
+					title={column.title}
+					isEditing={showTitleEdit}
+					isTitleValid={isTitleValid}
+					onTitleEdit={() => setShowTitleEdit(true)}
+					onTitleSave={onTitleSave}
+					onEditCancel={() => setShowTitleEdit(false)}
+				/>
+				{!showTitleEdit &&
+					<MoreVertMenu options={actionOpts} styles={menuStyles} handleAction={handleAction} />
+				}
+			</div>
 			<Droppable
 				droppableId={column.id}
 			>
@@ -63,8 +66,10 @@ const DroppableColumn = ({ column, ownTasks: tasks, dashboard, saveColumn, saveT
 						ref={provided.innerRef}
 						{...provided.droppableProps}
 						style={{
-							backgroundColor: (snapshot.isDraggingOver ? 'grey' : 'yellow'),
+							backgroundColor: (snapshot.isDraggingOver ? 'grey' : 'transparent'),
 							transition: 'background-color 0.2s ease',
+							flexGrow: 1,
+							overflow: 'scroll',
 						}}
 					>
 						{(tasks || []).map((task, index) => (
@@ -80,6 +85,7 @@ const DroppableColumn = ({ column, ownTasks: tasks, dashboard, saveColumn, saveT
 					</div>
 				)}
 			</Droppable>
+			</div>
 			<ManageTaskContainer saveTask={handleTaskSave} deleteTask={handleTaskDelete} />
 		</Paper>
 	);

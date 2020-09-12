@@ -163,9 +163,11 @@ export function deleteColumn (dashboard, columnId) {
 }
 export function saveColumnBulk (columns) {
 	return function (dispatch) {
+		// TODO add save optimistic
+		dispatch(saveColumnSuccess(columns));
 		return dashboardApi
 			.saveColumnBulk(columns)
-			.then(savedColumns => dispatch(saveColumnSuccess(savedColumns)))
+			// .then(savedColumns => dispatch(saveColumnSuccess(savedColumns)))
 			.catch(e => dispatch(saveColumnError(e)));
 	};
 }
