@@ -12,6 +12,7 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import GitHub from '@material-ui/icons/GitHub';
 import MenuIcon from '@material-ui/icons/Menu';
 import { makeStyles } from '@material-ui/core/styles';
+import { DashboardShape } from '../../prop-type-shapes';
 
 const drawerWidth = 240;
 const useStyles = makeStyles(theme => ({
@@ -84,7 +85,7 @@ const TopBar = ({ open, handleDrawerOpen, dashboard }) => {
 TopBar.propTypes = {
 	open: PropTypes.bool.isRequired,
 	handleDrawerOpen: PropTypes.func.isRequired,
-	dashboard: PropTypes.objectOf(PropTypes.object).isRequired,
+	dashboard: DashboardShape.isRequired,
 };
 
 const mapStateToProps = state => ({

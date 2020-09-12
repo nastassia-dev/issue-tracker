@@ -97,10 +97,12 @@ const DashboardsPage = ({
 };
 
 DashboardsPage.propTypes = {
-	history: PropTypes.objectOf(PropTypes.object).isRequired,
+	history: PropTypes.shape({
+		push: PropTypes.func.isRequired,
+	}).isRequired,
 	dashboardsState: PropTypes.shape({
-		active: PropTypes.objectOf(PropTypes.object).isRequired,
-		archived: PropTypes.objectOf(PropTypes.object).isRequired,
+		active: PropTypes.array.isRequired,
+		archived: PropTypes.array.isRequired,
 		total: PropTypes.number.isRequired,
 	}).isRequired,
 	loadDashboards: PropTypes.func.isRequired,

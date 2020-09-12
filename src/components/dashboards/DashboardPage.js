@@ -8,6 +8,7 @@ import * as dashboardsActions from '../../redux/actions/dashboardsActions';
 import DashboardDragDropContainer from './DashboardDragDropContainer';
 import FloatingBtn from '../common/FloatingBtn';
 import ManageColumnDialog from './ManageColumnDialog';
+import { DashboardShape } from '../../prop-type-shapes';
 
 const DashboardPage = ({
 	location,
@@ -66,7 +67,7 @@ const DashboardPage = ({
 DashboardPage.propTypes = {
 	location: PropTypes.objectOf(PropTypes.object).isRequired,
 	dashboardState: PropTypes.shape({
-		dashboard: PropTypes.objectOf(PropTypes.object).isRequired,
+		dashboard: DashboardShape.isRequired,
 		loadError: PropTypes.bool.isRequired,
 	}).isRequired,
 	loadDashboard: PropTypes.func.isRequired,

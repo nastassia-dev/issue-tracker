@@ -13,7 +13,7 @@ const Title = ({ children, ...props }) => (
 );
 
 Title.propTypes = {
-	children: PropTypes.objectOf(PropTypes.object).isRequired,
+	children: PropTypes.string.isRequired,
 };
 
 export default Title;

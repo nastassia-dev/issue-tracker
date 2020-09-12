@@ -4,7 +4,7 @@ import Typography from '@material-ui/core/Typography';
 
 import DashboardCard from './DashboardCard';
 
-const DashboardList = ({ dashboards, dashboardActions, header = '' }) => (
+const DashboardList = ({ dashboards, dashboardActions, header }) => (
 	<>
 		<Typography variant='h5' component='h2' gutterBottom>
 			{header}
@@ -17,10 +17,13 @@ const DashboardList = ({ dashboards, dashboardActions, header = '' }) => (
 	</>
 );
 
+DashboardList.defaultProps = {
+	header: '',
+};
 DashboardList.propTypes = {
-	dashboards: PropTypes.objectOf(PropTypes.object).isRequired,
-	dashboardActions: PropTypes.objectOf(PropTypes.object).isRequired,
-	header: PropTypes.objectOf(PropTypes.object).isRequired,
+	dashboards: PropTypes.arrayOf(PropTypes.object).isRequired,
+	dashboardActions: PropTypes.objectOf(PropTypes.func).isRequired,
+	header: PropTypes.string,
 };
 
 export default DashboardList;

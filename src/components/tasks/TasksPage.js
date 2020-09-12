@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 import * as tasksActions from '../../redux/actions/tasksActions';
 import Title from '../common/Title';
+import { TaskShape } from '../../prop-type-shapes';
 
 const TasksPage = ({ tasks, loadTasks }) => {
 	useEffect(() => {
@@ -23,7 +24,7 @@ const TasksPage = ({ tasks, loadTasks }) => {
 };
 
 TasksPage.propTypes = {
-	tasks: PropTypes.objectOf(PropTypes.object).isRequired,
+	tasks: PropTypes.arrayOf(TaskShape).isRequired,
 	loadTasks: PropTypes.func.isRequired,
 };
 

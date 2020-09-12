@@ -41,7 +41,7 @@ const AppContainer = (props) => {
 };
 
 AppContainer.propTypes = {
-	children: PropTypes.objectOf(PropTypes.object).isRequired,
+	children: PropTypes.element.isRequired,
 };
 
 export default AppContainer;

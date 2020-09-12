@@ -6,6 +6,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
+import { DashboardShape } from '../../prop-type-shapes';
 
 const fieldProps = {
 	fullWidth: true,
@@ -92,10 +93,7 @@ const ManageDashboardDialog = ({ dashboard: dashboardProp, open, handleSave, han
 };
 
 ManageDashboardDialog.propTypes = {
-	dashboard: PropTypes.objectOf(PropTypes.shape({
-		title: PropTypes.string.isRequired,
-		description: PropTypes.string.isRequired,
-	})).isRequired,
+	dashboard: DashboardShape.isRequired,
 	open: PropTypes.bool.isRequired,
 	handleSave: PropTypes.func.isRequired,
 	handleClose: PropTypes.func.isRequired,

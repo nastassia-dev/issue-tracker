@@ -5,6 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import EditIcon from '@material-ui/icons/Edit';
 import IconButton from '@material-ui/core/IconButton';
 import ManageTaskDialog from './ManageTaskDialog';
+import { TaskShape } from '../../prop-type-shapes';
 
 const useStyles = makeStyles(() => ({
 	task: isDragging => ({
@@ -61,9 +62,9 @@ const Task = ({ task, isDragging, innerRef, saveTask, deleteTask, ...props }) =>
 };
 
 Task.propTypes = {
-	task: PropTypes.objectOf(PropTypes.object).isRequired,
+	task: TaskShape.isRequired,
 	isDragging: PropTypes.bool.isRequired,
-	innerRef: PropTypes.objectOf(PropTypes.object).isRequired,
+	innerRef: PropTypes.func.isRequired,
 	saveTask: PropTypes.func.isRequired,
 	deleteTask: PropTypes.func.isRequired,
 };
@@ -88,7 +89,7 @@ const DraggableTask = ({ task, index, saveTask, deleteTask }) => (
 	);
 
 DraggableTask.propTypes = {
-  task: PropTypes.objectOf(PropTypes.object).isRequired,
+  task: TaskShape.isRequired,
 	index: PropTypes.number.isRequired,
   saveTask: PropTypes.func.isRequired,
   deleteTask: PropTypes.func.isRequired,

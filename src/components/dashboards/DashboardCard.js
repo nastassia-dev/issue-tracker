@@ -5,6 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import MoreVertMenu from '../common/MoreVertMenu';
+import { DashboardShape } from '../../prop-type-shapes';
 
 const VIEW = 'View';
 const EDIT = 'Edit';
@@ -68,8 +69,8 @@ const DashboardCard = ({ dashboard, actions }) => {
 };
 
 DashboardCard.propTypes = {
-	dashboard: PropTypes.objectOf(PropTypes.object).isRequired,
-	actions: PropTypes.objectOf(PropTypes.object).isRequired,
+	dashboard: DashboardShape.isRequired,
+	actions: PropTypes.objectOf(PropTypes.func).isRequired,
 };
 
 export default DashboardCard;

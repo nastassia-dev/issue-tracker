@@ -10,6 +10,7 @@ import EditableTitle from '../common/EditableTitle';
 import * as dashboardsActions from '../../redux/actions/dashboardsActions';
 import ManageTaskContainer from './ManageTaskContainer';
 import MoreVertMenu from '../common/MoreVertMenu';
+import { ColumnShape, DashboardShape, TaskShape } from '../../prop-type-shapes';
 
 const useStyles = makeStyles(() => ({
 	column: {
@@ -79,20 +80,18 @@ const DroppableColumn = ({ column, ownTasks: tasks, dashboard, saveColumn, saveT
 					</div>
 				)}
 			</Droppable>
-			<ManageTaskContainer saveTask={handleTaskSave} />
+			<ManageTaskContainer saveTask={handleTaskSave} deleteTask={handleTaskDelete} />
 		</Paper>
 	);
 };
 
+DroppableColumn.defaultProps = {
+	ownTasks: [],
+};
 DroppableColumn.propTypes = {
-	column: PropTypes.objectOf(PropTypes.shape({
-		id: PropTypes.string.isRequired,
-		title: PropTypes.string.isRequired,
-	})).isRequired,
-	ownTasks: PropTypes.objectOf(PropTypes.shape({
-		id: PropTypes.string.isRequired,
-	})).isRequired,
-	dashboard: PropTypes.objectOf(PropTypes.shape({})).isRequired,
+	column: ColumnShape.isRequired,
+	ownTasks: PropTypes.arrayOf(TaskShape),
+	dashboard: DashboardShape.isRequired,
 	saveColumn: PropTypes.func.isRequired,
 	saveTask: PropTypes.func.isRequired,
 	deleteTask: PropTypes.func.isRequired,
