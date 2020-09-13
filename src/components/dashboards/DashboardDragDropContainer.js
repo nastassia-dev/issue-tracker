@@ -8,13 +8,13 @@ import { DashboardShape } from '../../prop-type-shapes';
 
 const DashboardDragDropContainer = ({ dashboard, handleColumnSave }) => {
 	const { columns, tasks, columnOrder } = dashboard;
+	const columnWidth = `${100 / (columnOrder.length || 1) - 1}%`;
 
 	const onDragStart = () => {};
 	const onDragUpdate = () => {};
 	const onDragEnd = (result) => {
 		const { destination, source, draggableId } = result;
 		if (!destination) return;
-		// eslint-disable-next-line max-len
 		if (destination.droppableId === source.droppableId && destination.index === source.index) return;
 
 		const startColumn = columns.find(c => c.id === source.droppableId);
@@ -50,7 +50,7 @@ const DashboardDragDropContainer = ({ dashboard, handleColumnSave }) => {
 					const column = columns.find(c => c.id === columnId);
 					const ownTasks = column.taskIds.map(t => tasks.find(tt => tt.id === t));
 					return (
-						<Grid item key={columnId}>
+						<Grid item key={columnId} style={{ width: columnWidth }}>
 							<DroppableColumn
 								column={column}
 								ownTasks={ownTasks}

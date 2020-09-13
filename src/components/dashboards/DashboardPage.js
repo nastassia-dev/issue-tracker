@@ -16,7 +16,7 @@ const DashboardPage = ({
 	loadDashboard,
 	saveColumnBulk,
 	saveColumn,
-	resetDashboard,
+	resetDashboard, // TODO handle resetting dashboard in useEffect
 }) => {
 	// const dashboardTemp = (location.state && location.state.dashboard) || {};
 	const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -40,12 +40,15 @@ const DashboardPage = ({
 		return <Redirect to='/dashboards' />;
 	}
 
+	const atLimit = (dashboard.id && dashboard.columns.length > 5);
+
 	return (
 		<>
 			{dashboard.id && (
 				<>
 					{isDialogOpen && (
 						<ManageColumnDialog
+							atLimit={atLimit}
 							open={isDialogOpen}
 							handleSave={handleColumnSave}
 							handleClose={() => setIsDialogOpen(false)}

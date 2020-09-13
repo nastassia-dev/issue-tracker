@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -16,7 +17,7 @@ const fieldProps = {
 };
 const defaultColumn = { title: '' };
 
-const ManageColumnDialog = ({ open, handleSave, handleClose }) => {
+const ManageColumnDialog = ({ open, atLimit, handleSave, handleClose }) => {
 	const [column, setColumn] = useState(defaultColumn);
 	const [errors, setErrors] = useState({});
 
@@ -43,6 +44,26 @@ const ManageColumnDialog = ({ open, handleSave, handleClose }) => {
 		if (!isFormValid()) return;
 		handleSave(column);
 	};
+
+	if (atLimit) {
+		return (
+			<Dialog fullWidth open={open}>
+				<DialogTitle style={{ paddingBottom: 0 }}>
+					Demo Version: Limit Reached
+				</DialogTitle>
+				<DialogContent dividers>
+					<Typography gutterBottom>
+						You are viewing a demo version of the app. A maximum of 6 columns per dashboard is allowed.
+					</Typography>
+				</DialogContent>
+				<DialogActions>
+					<Button color='primary' onClick={handleClose}>
+						Close
+					</Button>
+				</DialogActions>
+			</Dialog>
+		);
+	}
 
 	return (
 		<Dialog fullWidth open={open} onClose={handleClose}>
@@ -74,8 +95,12 @@ const ManageColumnDialog = ({ open, handleSave, handleClose }) => {
 	);
 };
 
+ManageColumnDialog.defaultProps = {
+	atLimit: true,
+};
 ManageColumnDialog.propTypes = {
 	open: PropTypes.bool.isRequired,
+	atLimit: PropTypes.bool,
 	handleSave: PropTypes.func.isRequired,
 	handleClose: PropTypes.func.isRequired,
 };

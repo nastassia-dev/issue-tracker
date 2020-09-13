@@ -15,7 +15,6 @@ import { ColumnShape, DashboardShape, TaskShape } from '../../prop-type-shapes';
 const useStyles = makeStyles(() => ({
 	column: {
 		height: 640,
-		width: 300,
 		padding: '10px 5px',
 		backgroundColor: '#e3f1ff',
 		position: 'relative',

@@ -7,8 +7,8 @@ import Tooltip from '@material-ui/core/Tooltip';
 const useStyles = makeStyles(() => ({
 	btnAdd: {
 		position: 'absolute',
-		bottom: 40,
-		right: 60,
+		bottom: 30,
+		right: 30,
 	},
 }));
 
