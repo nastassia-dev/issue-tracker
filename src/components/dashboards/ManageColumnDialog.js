@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import TextInputField from '../common/TextInputField';
+import DialogActionsContainer from '../dialog/DialogActionsContainer';
+import DialogContainer from '../dialog/DialogContainer';
 
 const defaultColumn = { title: '' };
 
@@ -29,11 +29,8 @@ const ManageColumnDialog = ({ open, atLimit, handleSave, handleClose }) => {
 
 	if (atLimit) {
 		return (
-			<Dialog fullWidth open={open}>
-				<DialogTitle style={{ paddingBottom: 0 }}>
-					Demo Version: Limit Reached
-				</DialogTitle>
-				<DialogContent dividers>
+			<DialogContainer open={open} title='Demo Version: Limit Reached'>
+				<DialogContent>
 					<Typography gutterBottom>
 						You are viewing a demo version of the app. A maximum of 6 columns per dashboard is allowed.
 					</Typography>
@@ -43,15 +40,12 @@ const ManageColumnDialog = ({ open, atLimit, handleSave, handleClose }) => {
 						Close
 					</Button>
 				</DialogActions>
-			</Dialog>
+			</DialogContainer>
 		);
 	}
 
 	return (
-		<Dialog fullWidth open={open} onClose={handleClose}>
-			<DialogTitle style={{ paddingBottom: 0 }}>
-				Add Column
-			</DialogTitle>
+		<DialogContainer open={open} onClose={handleClose} title='Add Column'>
 			<DialogContent>
 				<TextInputField
 					autoFocus
@@ -62,15 +56,8 @@ const ManageColumnDialog = ({ open, atLimit, handleSave, handleClose }) => {
 					onChange={handleChange}
 				/>
 			</DialogContent>
-			<DialogActions>
-				<Button color='primary' onClick={handleClose}>
-					Cancel
-				</Button>
-				<Button color='primary' onClick={handleSaveConfirm}>
-					Save
-				</Button>
-			</DialogActions>
-		</Dialog>
+			<DialogActionsContainer handleClose={handleClose} handleConfirm={handleSaveConfirm} />
+		</DialogContainer>
 	);
 };
 

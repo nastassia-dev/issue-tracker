@@ -1,12 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogActions from '@material-ui/core/DialogActions';
 import { DashboardShape } from '../../prop-type-shapes';
 import TextInputField from '../common/TextInputField';
+import DialogActionsContainer from '../dialog/DialogActionsContainer';
+import DialogContainer from '../dialog/DialogContainer';
 
 const defaultDashboard = {
 	title: '',
@@ -37,10 +35,7 @@ const ManageDashboardDialog = ({ dashboard: dashboardProp, open, handleSave, han
 	};
 
 	return (
-		<Dialog fullWidth open={open} onClose={handleClose}>
-			<DialogTitle style={{ paddingBottom: 0 }}>
-				Add Dashboard
-			</DialogTitle>
+		<DialogContainer open={open} onClose={handleClose} title='Add Dashboard'>
 			<DialogContent>
 				<TextInputField
 					autoFocus
@@ -62,15 +57,8 @@ const ManageDashboardDialog = ({ dashboard: dashboardProp, open, handleSave, han
 					rowsMax={6}
 				/>
 			</DialogContent>
-			<DialogActions>
-				<Button color='primary' onClick={handleClose}>
-					Cancel
-				</Button>
-				<Button color='primary' onClick={handleSaveConfirm}>
-					Save
-				</Button>
-			</DialogActions>
-		</Dialog>
+			<DialogActionsContainer handleClose={handleClose} handleConfirm={handleSaveConfirm} />
+		</DialogContainer>
 	);
 };
 
