@@ -8,7 +8,7 @@ import DialogContainer from './DialogContainer';
 import { AT_LIMIT_DIALOG_TITLE } from '../../constants';
 
 const AtLimitDialog = ({ open, title, message, handleClose }) => (
-  <DialogContainer open={open} title={title}>
+  <DialogContainer open={open} title={title} handleClose={handleClose}>
     <DialogContent>
       <Typography gutterBottom>
         {message}

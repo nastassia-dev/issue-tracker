@@ -46,7 +46,9 @@ const DashboardCard = ({ dashboard, actions }) => {
 		if (name === DELETE) return actions.handleDeleteDashboard(dashboard);
 		return null;
 	};
-	const actionOpts = [VIEW, EDIT, (dashboard.status === 'active' ? ARCHIVE : UNARCHIVE), DELETE];
+	const actionOpts = dashboard.status === 'active'
+		? [VIEW, EDIT, ARCHIVE, DELETE]
+		: [UNARCHIVE, DELETE];
 	return (
 		<Card className={classes.root}>
 			<CardContent>

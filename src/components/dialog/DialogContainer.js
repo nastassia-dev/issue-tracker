@@ -21,7 +21,10 @@ DialogContainer.propTypes = {
   open: PropTypes.bool,
   title: PropTypes.string,
   handleClose: PropTypes.func.isRequired,
-  children: PropTypes.element,
+  children: PropTypes.oneOf([
+    PropTypes.element,
+    PropTypes.arrayOf(PropTypes.element),
+  ]),
 };
 
 export default DialogContainer;
