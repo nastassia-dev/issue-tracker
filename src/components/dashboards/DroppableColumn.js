@@ -41,6 +41,8 @@ const DroppableColumn = ({ column, ownTasks: tasks, dashboard, saveColumn, saveT
 		if (name === DELETE) return deleteColumn(dashboard, column.id);
 		return null;
 	};
+
+	const tasksAtLimit = dashboard.tasks.length >= 30;
 	return (
 		<Paper className={classes.column}>
 			<div style={{ height: 595, display: 'flex', flexDirection: 'column' }}>
@@ -85,7 +87,7 @@ const DroppableColumn = ({ column, ownTasks: tasks, dashboard, saveColumn, saveT
 				)}
 			</Droppable>
 			</div>
-			<ManageTaskContainer saveTask={handleTaskSave} deleteTask={handleTaskDelete} />
+			<ManageTaskContainer atLimit={tasksAtLimit} saveTask={handleTaskSave} deleteTask={handleTaskDelete} />
 		</Paper>
 	);
 };

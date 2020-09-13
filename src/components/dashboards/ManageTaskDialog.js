@@ -5,8 +5,10 @@ import DialogContent from '@material-ui/core/DialogContent';
 import TextInputField from '../common/TextInputField';
 import DialogActionsContainer from '../dialog/DialogActionsContainer';
 import DialogContainer from '../dialog/DialogContainer';
+import AtLimitDialog from '../dialog/AtLimitDialog';
+import { AT_LIMIT_DIALOG_MSG__TASK } from '../../constants';
 
-const ManageTaskDialog = ({ task = {}, isOpen, setIsOpen, saveTask, deleteTask }) => {
+const ManageTaskDialog = ({ task = {}, atLimit, isOpen, setIsOpen, saveTask, deleteTask }) => {
 	const [content, setContent] = useState(task.content);
 	const [hasError, setHasError] = useState(false);
 
@@ -23,6 +25,16 @@ const ManageTaskDialog = ({ task = {}, isOpen, setIsOpen, saveTask, deleteTask }
 		setHasError(false);
 		setContent(value);
 	};
+
+	if (atLimit && !task.content) {
+		return (
+			<AtLimitDialog
+				open={isOpen}
+				message={AT_LIMIT_DIALOG_MSG__TASK}
+				handleClose={handleClose}
+			/>
+		);
+	}
 
 	return (
 		<DialogContainer open={isOpen} onClose={handleClose} title={task.content ? 'Edit Task' : 'Add Task'}>
@@ -51,10 +63,12 @@ const ManageTaskDialog = ({ task = {}, isOpen, setIsOpen, saveTask, deleteTask }
 
 ManageTaskDialog.defaultProps = {
 	task: {},
+	atLimit: true,
 };
 
 ManageTaskDialog.propTypes = {
 	task: PropTypes.objectOf(PropTypes.object),
+	atLimit: PropTypes.bool,
 	isOpen: PropTypes.bool.isRequired,
 	setIsOpen: PropTypes.func.isRequired,
 	saveTask: PropTypes.func.isRequired,

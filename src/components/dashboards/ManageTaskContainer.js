@@ -5,13 +5,14 @@ import AddIcon from '@material-ui/icons/Add';
 import Tooltip from '@material-ui/core/Tooltip';
 import ManageTaskDialog from './ManageTaskDialog';
 
-const ManageTaskContainer = ({ saveTask, deleteTask }) => {
+const ManageTaskContainer = ({ atLimit, saveTask, deleteTask }) => {
 	const [isOpen, setIsOpen] = useState(false);
 
 	if (isOpen) {
 		return (
 			<ManageTaskDialog
 				isOpen={isOpen}
+				atLimit={atLimit}
 				setIsOpen={setIsOpen}
 				saveTask={saveTask}
 				deleteTask={deleteTask}
@@ -32,7 +33,11 @@ const ManageTaskContainer = ({ saveTask, deleteTask }) => {
 	);
 };
 
+ManageTaskContainer.defaultProps = {
+	atLimit: true,
+};
 ManageTaskContainer.propTypes = {
+	atLimit: PropTypes.bool,
 	saveTask: PropTypes.func.isRequired,
 	deleteTask: PropTypes.func.isRequired,
 };

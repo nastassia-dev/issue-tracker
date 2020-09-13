@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogActions from '@material-ui/core/DialogActions';
 import TextInputField from '../common/TextInputField';
 import DialogActionsContainer from '../dialog/DialogActionsContainer';
 import DialogContainer from '../dialog/DialogContainer';
+import { AT_LIMIT_DIALOG_MSG__COLUMN } from '../../constants';
+import AtLimitDialog from '../dialog/AtLimitDialog';
 
 const defaultColumn = { title: '' };
 
@@ -29,18 +28,11 @@ const ManageColumnDialog = ({ open, atLimit, handleSave, handleClose }) => {
 
 	if (atLimit) {
 		return (
-			<DialogContainer open={open} title='Demo Version: Limit Reached'>
-				<DialogContent>
-					<Typography gutterBottom>
-						You are viewing a demo version of the app. A maximum of 6 columns per dashboard is allowed.
-					</Typography>
-				</DialogContent>
-				<DialogActions>
-					<Button color='primary' onClick={handleClose}>
-						Close
-					</Button>
-				</DialogActions>
-			</DialogContainer>
+			<AtLimitDialog
+				open={open}
+				message={AT_LIMIT_DIALOG_MSG__COLUMN}
+				handleClose={handleClose}
+			/>
 		);
 	}
 
