@@ -78,7 +78,7 @@ const DashboardsPage = ({
 					dashboard={dashboard}
 					open={isDialogOpen}
 					handleSave={handleSaveDashboard}
-					handleClose={() => setIsDialogOpen(false)}
+					handleClose={() => { setIsDialogOpen(false); setDashboard(null); }}
 				/>
 				)}
 			{!total && <Alert severity='info'>Dashboards Not Found</Alert>}

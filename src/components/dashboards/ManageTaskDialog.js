@@ -5,7 +5,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
-import TextField from '@material-ui/core/TextField';
+import TextInputField from '../common/TextInputField';
 
 const ManageTaskDialog = ({ task = {}, isOpen, setIsOpen, saveTask, deleteTask }) => {
 	const [content, setContent] = useState(task.content);
@@ -35,20 +35,13 @@ const ManageTaskDialog = ({ task = {}, isOpen, setIsOpen, saveTask, deleteTask }
 				{task.content ? 'Edit Task' : 'Add Task'}
 			</DialogTitle>
 			<DialogContent>
-				<TextField
+				<TextInputField
 					autoFocus
-					required
 					error={hasError}
-					variant='outlined'
 					label='Description'
-					type='text'
-					margin='normal'
-					fullWidth
-					multiline
 					rows={3}
 					rowsMax={6}
 					onChange={handleContentChange}
-					InputLabelProps={{ shrink: true }}
 					value={content}
 				/>
 			</DialogContent>

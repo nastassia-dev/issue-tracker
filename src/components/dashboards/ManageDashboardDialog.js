@@ -1,20 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import { DashboardShape } from '../../prop-type-shapes';
+import TextInputField from '../common/TextInputField';
 
-const fieldProps = {
-	fullWidth: true,
-	margin: 'normal',
-	variant: 'outlined',
-	required: true,
-	InputLabelProps: { shrink: true },
-};
 const defaultDashboard = {
 	title: '',
 	description: '',
@@ -23,21 +16,12 @@ const defaultDashboard = {
 const ManageDashboardDialog = ({ dashboard: dashboardProp, open, handleSave, handleClose }) => {
 	const [dashboard, setDashboard] = useState((dashboardProp || defaultDashboard));
 	const [errors, setErrors] = useState({});
-	useEffect(() => {
-		setDashboard((dashboardProp || defaultDashboard));
-	}, [dashboardProp]);
 
 	const handleChange = ({ target: { name, value } }) => {
-		setDashboard(prevState => ({
-			...prevState,
-			[name]: value,
-		}));
+		setDashboard(prevState => ({ ...prevState, [name]: value }));
 	};
 	const handleFocus = ({ target: { name } }) => {
-		setErrors(prevState => ({
-			...prevState,
-			[name]: false,
-		}));
+		setErrors(prevState => ({ ...prevState, [name]: false }));
 	};
 	const isFormValid = () => {
 		const { title, description } = dashboard;
@@ -58,24 +42,22 @@ const ManageDashboardDialog = ({ dashboard: dashboardProp, open, handleSave, han
 				Add Dashboard
 			</DialogTitle>
 			<DialogContent>
-				<TextField
+				<TextInputField
+					autoFocus
 					name='title'
 					label='Title'
 					error={errors.title}
 					value={dashboard.title}
 					onChange={handleChange}
 					onFocus={handleFocus}
-					{...fieldProps}
-					autoFocus
 				/>
-				<TextField
+				<TextInputField
 					name='description'
 					label='Description'
 					error={errors.description}
 					value={dashboard.description}
 					onChange={handleChange}
-					{...fieldProps}
-					multiline
+					onFocus={handleFocus}
 					rows={3}
 					rowsMax={6}
 				/>
@@ -92,8 +74,11 @@ const ManageDashboardDialog = ({ dashboard: dashboardProp, open, handleSave, han
 	);
 };
 
+ManageDashboardDialog.defaultProps = {
+	dashboard: defaultDashboard,
+};
 ManageDashboardDialog.propTypes = {
-	dashboard: DashboardShape.isRequired,
+	dashboard: DashboardShape,
 	open: PropTypes.bool.isRequired,
 	handleSave: PropTypes.func.isRequired,
 	handleClose: PropTypes.func.isRequired,

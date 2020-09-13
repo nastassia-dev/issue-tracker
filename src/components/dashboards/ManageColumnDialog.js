@@ -1,48 +1,30 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
-import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
+import TextInputField from '../common/TextInputField';
 
-const fieldProps = {
-	fullWidth: true,
-	margin: 'normal',
-	variant: 'outlined',
-	required: true,
-	InputLabelProps: { shrink: true },
-};
 const defaultColumn = { title: '' };
 
 const ManageColumnDialog = ({ open, atLimit, handleSave, handleClose }) => {
 	const [column, setColumn] = useState(defaultColumn);
-	const [errors, setErrors] = useState({});
+	const [error, setError] = useState(false);
 
 	const handleChange = ({ target: { name, value } }) => {
+		setError(false);
 		setColumn(prevState => ({
 			...prevState,
 			[name]: value,
 		}));
 	};
-	const handleFocus = ({ target: { name } }) => {
-		setErrors(prevState => ({
-			...prevState,
-			[name]: false,
-		}));
-	};
-	const isFormValid = () => {
-		const { title } = column;
-		const err = {};
-		if (!title) errors.title = true;
-		setErrors(err);
-		return Object.keys(err).length === 0;
-	};
 	const handleSaveConfirm = () => {
-		if (!isFormValid()) return;
-		handleSave(column);
+		const { title } = column;
+		if (!title) return setError(true);
+		return handleSave(column);
 	};
 
 	if (atLimit) {
@@ -71,16 +53,13 @@ const ManageColumnDialog = ({ open, atLimit, handleSave, handleClose }) => {
 				Add Column
 			</DialogTitle>
 			<DialogContent>
-				<TextField
-					autoComplete='off'
+				<TextInputField
+					autoFocus
 					name='title'
 					label='Title'
-					error={errors.title}
+					error={error}
 					value={column.title}
 					onChange={handleChange}
-					onFocus={handleFocus}
-					{...fieldProps}
-					autoFocus
 				/>
 			</DialogContent>
 			<DialogActions>
